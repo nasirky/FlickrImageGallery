@@ -16,6 +16,7 @@
 		50ACFB4B21027509007EEFAA /* FlickrFetcherSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 50ACFB45210274FA007EEFAA /* FlickrFetcherSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		50ACFB4E2102775C007EEFAA /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ACFB4D2102775C007EEFAA /* MainViewController.swift */; };
 		50ACFB522102777B007EEFAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50ACFB502102777B007EEFAA /* LaunchScreen.storyboard */; };
+		50ACFB5A21027F27007EEFAA /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 50ACFB5921027F27007EEFAA /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -44,6 +45,7 @@
 		50ACFB45210274FA007EEFAA /* FlickrFetcherSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FlickrFetcherSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50ACFB4D2102775C007EEFAA /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		50ACFB512102777B007EEFAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		50ACFB5921027F27007EEFAA /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		EEEE547088CD5480ABFBADD8 /* Pods_FlickrImageGallery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlickrImageGallery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -88,6 +90,7 @@
 				50ACFB2621027492007EEFAA /* AppDelegate.swift */,
 				50ACFB2F21027494007EEFAA /* Assets.xcassets */,
 				50ACFB3421027494007EEFAA /* Info.plist */,
+				50ACFB5921027F27007EEFAA /* Settings.bundle */,
 			);
 			path = FlickrImageGallery;
 			sourceTree = "<group>";
@@ -154,6 +157,7 @@
 				50ACFB2021027492007EEFAA /* Frameworks */,
 				50ACFB2121027492007EEFAA /* Resources */,
 				50ACFB3D210274AE007EEFAA /* Embed Frameworks */,
+				6AE37DBFB4178AD3680A137B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -202,6 +206,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50ACFB5A21027F27007EEFAA /* Settings.bundle in Resources */,
 				50ACFB522102777B007EEFAA /* LaunchScreen.storyboard in Resources */,
 				50ACFB3021027494007EEFAA /* Assets.xcassets in Resources */,
 				50ACFB2E21027492007EEFAA /* Main.storyboard in Resources */,
@@ -227,6 +232,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6AE37DBFB4178AD3680A137B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/../Pods/Target Support Files/Pods-FlickrImageGallery/Pods-FlickrImageGallery-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-FlickrImageGallery/Pods-FlickrImageGallery-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
