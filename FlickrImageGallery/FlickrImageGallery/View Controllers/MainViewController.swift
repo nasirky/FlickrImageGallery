@@ -24,6 +24,7 @@ class MainViewController: UIViewController {
     let headerHeight:CGFloat = 40
     let footerHeight:CGFloat = 40
 
+    // MARK:- ViewController methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,9 +35,12 @@ class MainViewController: UIViewController {
         }
         
         refreshControl.addTarget(self, action: #selector(refreshLists(_:)), for: .valueChanged)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didSelectListItem(_:)), name: NSNotification.Name(rawValue: "DidSelectListItem"), object: nil)
+
     }
     
-    // Refreshes the list (clears the current lists so that it is fetched from the server).
+    /// Refreshes the list (clears the current lists so that it is fetched from the server).
     @objc func refreshLists(_ sender: Any) {
         for i in 0..<lists.count {
             lists[i] = nil
@@ -45,26 +49,42 @@ class MainViewController: UIViewController {
         tvLists.reloadData()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-
+    /// This function is called when the ListItem (photo) is tapped by the user
+    @objc func didSelectListItem(_ notification: Notification) {
+        if let userInfo = notification.userInfo {
+            if let indexPath = userInfo["indexPath"] as? IndexPath {
+                if let list = lists[indexPath.section] {
+                    selectedItem = list.items[indexPath.row]
+                    self.performSegue(withIdentifier: "ShowDetailVC", sender: nil)
+                }
+            }
+        }
     }
     
-    /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    /// Passing the selected Item to the DetailViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if let viewController = segue.destination as? DetailViewController {
+            viewController.item = selectedItem
+        }
     }
-    */
+    
+    // MARK: - Memory Warning and deinit
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        
+    }
+
+    deinit {
+        //Removing all the Notification observers
+        NotificationCenter.default.removeObserver(self)
+    }
 
 }
 
 //MARK: UITableViewDataSource
 extension MainViewController: UITableViewDataSource {
-    // I am using grouped tableview where each section represents a list (so each section has 1 row as the lists are being handled by UICollectionViews).
+    // I am using grouped tableview where each section represents a list (so each section has 1 row as the lists are being handled by UICollectionViews). Since I want to make use of section headers and footers, that is the reason I am using this approach (1 section per list).
     func numberOfSections(in tableView: UITableView) -> Int {
         return sectionHeaders.count
     }

@@ -49,5 +49,10 @@ extension ListTableViewCell: UICollectionViewDataSource {
 
 extension ListTableViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // Using Notifications instead of delegation as I think Notification is much cleaner approach in this case
+        // Otherwise each ListItem cell would have reference to the parent
+        let userInfo = ["indexPath": IndexPath.init(row: indexPath.row, section: section)]
+        
+        NotificationCenter.default.post(name: NSNotification.Name("DidSelectListItem"), object: nil, userInfo: userInfo)
     }
 }
