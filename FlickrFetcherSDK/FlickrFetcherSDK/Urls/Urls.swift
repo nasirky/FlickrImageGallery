@@ -15,5 +15,5 @@ class Urls: NSObject {
     /// The url for Services endpoint
     static let services = Urls.base.appending("services/")
     /// The url for feeds endpoint
-    static let feeds = Urls.base.appending("feeds/")    
+    static let feeds = Urls.services.appending("feeds/")    
 }

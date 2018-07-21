@@ -16,7 +16,7 @@ extension Date {
     ///   - format: The date format for the input date string. Default format is `yyyy-MM-dd'T'HH:mm:ssxx`
     /// - Returns: an optional date object (which will be `nil` if either the input string or date format are not compatible
     static func from(string value: String, withFormat format: String = "yyyy-MM-dd'T'HH:mm:ssxx") -> Date? {
-        let dateFormatter = DateFormatter.init()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         
         return dateFormatter.date(from: value)

@@ -32,16 +32,18 @@ public class PublicService {
             switch(response.result) {
             case .success:
                 if let data = response.data {
-                    let json = try! JSON.init(data: data)
-                    let itemsJSON = json["items"].arrayValue
+                    if let json = try? JSON(data: data) {
+                        let itemsJSON = json["items"].arrayValue
                     
-                    var items = [Item]()
-                    for item in itemsJSON {
-                        let item = Item(with: item)
-                        items.append(item)
+                        var items = [Item]()
+                        for item in itemsJSON {
+                            let item = Item(with: item)
+                            items.append(item)
+                        }
+                        success?(items, tags)
+                    } else {
+                        failure?(String(data: data, encoding: .utf8) ?? "", tags)
                     }
-
-                    success?(items, tags)
                 }
             case .failure(let error):
                 failure?(error.localizedDescription, tags)
