@@ -18,6 +18,11 @@ class DetailViewController: UIViewController {
     @IBAction func openInBrowser(_ sender: Any) {
     }
 
+    @IBAction func showInfo(_ sender: Any) {
+    }
+
+    @IBAction func share(_ sender: Any) {
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
