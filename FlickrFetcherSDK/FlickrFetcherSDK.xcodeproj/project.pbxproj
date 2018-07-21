@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		501473442103D78900B5832F /* SortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501473432103D78900B5832F /* SortOrder.swift */; };
 		50ACFB0A21027480007EEFAA /* FlickrFetcherSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50ACFB002102747F007EEFAA /* FlickrFetcherSDK.framework */; };
 		50ACFB0F21027480007EEFAA /* FlickrFetcherSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ACFB0E21027480007EEFAA /* FlickrFetcherSDKTests.swift */; };
 		50ACFB1121027480007EEFAA /* FlickrFetcherSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 50ACFB032102747F007EEFAA /* FlickrFetcherSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -32,6 +33,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		501473432103D78900B5832F /* SortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOrder.swift; sourceTree = "<group>"; };
 		50ACFB002102747F007EEFAA /* FlickrFetcherSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlickrFetcherSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50ACFB032102747F007EEFAA /* FlickrFetcherSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlickrFetcherSDK.h; sourceTree = "<group>"; };
 		50ACFB042102747F007EEFAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -83,6 +85,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		501473422103D76F00B5832F /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				501473432103D78900B5832F /* SortOrder.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		50ACFAF62102747F007EEFAA = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +116,7 @@
 		50ACFB022102747F007EEFAA /* FlickrFetcherSDK */ = {
 			isa = PBXGroup;
 			children = (
+				501473422103D76F00B5832F /* Enums */,
 				50ACFB53210277E2007EEFAA /* Extensions */,
 				50ACFB54210277E8007EEFAA /* Models */,
 				50ACFB55210277F0007EEFAA /* Urls */,
@@ -348,6 +359,7 @@
 				50ACFB6E21029FBE007EEFAA /* Media.swift in Sources */,
 				50ACFB6221029E9E007EEFAA /* Urls.swift in Sources */,
 				50ACFB6C21029FAD007EEFAA /* List.swift in Sources */,
+				501473442103D78900B5832F /* SortOrder.swift in Sources */,
 				50ACFB6621029F1E007EEFAA /* PublicService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
