@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		33ACD2995E78BA94C7BF093F /* Pods_FlickrImageGallery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEEE547088CD5480ABFBADD8 /* Pods_FlickrImageGallery.framework */; };
+		5014733D2103AC1C00B5832F /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5014733C2103AC1C00B5832F /* UIViewController.swift */; };
 		50ACFB2721027492007EEFAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ACFB2621027492007EEFAA /* AppDelegate.swift */; };
 		50ACFB2B21027492007EEFAA /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ACFB2A21027492007EEFAA /* DetailViewController.swift */; };
 		50ACFB2E21027492007EEFAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50ACFB2C21027492007EEFAA /* Main.storyboard */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		27ADECC3190B39E0C2DCC7F3 /* Pods-FlickrImageGallery.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickrImageGallery.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-FlickrImageGallery/Pods-FlickrImageGallery.debug.xcconfig"; sourceTree = "<group>"; };
 		305689B8B83C7FC9352C0AC7 /* Pods-FlickrImageGallery.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickrImageGallery.release.xcconfig"; path = "../Pods/Target Support Files/Pods-FlickrImageGallery/Pods-FlickrImageGallery.release.xcconfig"; sourceTree = "<group>"; };
+		5014733C2103AC1C00B5832F /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		50ACFB2321027492007EEFAA /* FlickrImageGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickrImageGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50ACFB2621027492007EEFAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50ACFB2A21027492007EEFAA /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +68,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5014733B2103AC0A00B5832F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5014733C2103AC1C00B5832F /* UIViewController.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		50ACFB1A21027492007EEFAA = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +97,7 @@
 		50ACFB2521027492007EEFAA /* FlickrImageGallery */ = {
 			isa = PBXGroup;
 			children = (
+				5014733B2103AC0A00B5832F /* Extensions */,
 				50ACFB58210278AB007EEFAA /* Cells */,
 				50ACFB5721027824007EEFAA /* Models */,
 				50ACFB4F21027763007EEFAA /* Storyboards */,
@@ -271,6 +282,7 @@
 			files = (
 				50ACFB4E2102775C007EEFAA /* MainViewController.swift in Sources */,
 				50ACFB5C210289FE007EEFAA /* ListTableViewCell.swift in Sources */,
+				5014733D2103AC1C00B5832F /* UIViewController.swift in Sources */,
 				50ACFB2B21027492007EEFAA /* DetailViewController.swift in Sources */,
 				50ACFB2721027492007EEFAA /* AppDelegate.swift in Sources */,
 				50ACFB6021028AA6007EEFAA /* ListItemCollectionViewCell.swift in Sources */,
