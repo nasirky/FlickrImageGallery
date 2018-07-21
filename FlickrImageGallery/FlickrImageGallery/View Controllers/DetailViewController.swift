@@ -41,9 +41,25 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func openInBrowser(_ sender: Any) {
+        if let url = item?.media.imageUrl {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [String:Any](), completionHandler: nil)
+            } else {
+                self.showAlert("Oops... Looks like we cannot open this image in browser. Please try another image.")
+            }
+        }
     }
 
     @IBAction func share(_ sender: Any) {
+        if let image = ivImage.image, imageLoadingComplete {
+            let activityVC = UIActivityViewController(activityItems: [(image)], applicationActivities: nil)
+            activityVC.popoverPresentationController?.sourceView = self.view
+            // Excluding copy, print from share dialog
+             activityVC.excludedActivityTypes = [.copyToPasteboard, .print]
+            self.present(activityVC, animated: true, completion: nil)
+        } else {
+            self.showAlert("Please wait for the image to complete loading and then try again.")
+        }
     }
 
     // MARK: - Navigation
