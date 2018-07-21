@@ -104,14 +104,15 @@ extension MainViewController: UITableViewDataSource {
             PublicService.sharedInstance.fetchPublicPhotos(with: tag, onSuccess: { (items, allTags) in
                 // Fetch the section index (which list to update) on the basis of the tags. This will not work if two sections have the exactly same tags in same order (but that use case does not make sense here)
                 if let index = self.tags.index(of: allTags) {
-                    self.lists[index] = List(with: items)
+                    let list = List(with: items, sortBy: .descending)
+                    self.lists[index] = list
                     
                     let indexPath = IndexPath(row: 0, section: index)
                     let cell = self.tvLists.cellForRow(at: indexPath) as? ListTableViewCell
                     
                     //Updating the cell only if it is visible
                     if let count = self.tvLists.indexPathsForVisibleRows?.filter({$0 == indexPath}).count, count > 0 {
-                        cell?.update(with: items, section: index)
+                        cell?.update(with: list.items, section: index)
                     }
                     
                     //hiding refreshControl when
