@@ -21,6 +21,7 @@ public class List {
     ///   - items: The list/array of `Item`
     ///   - ttl: The expiry time (in seconds). This property is used by `hasExpired`. The main purpose of this property is to limit the number of API(network) requests (as per the developer's preference). Setting it to 0 would force `hasExpired` to return `true` every time (asking the application to new API request)
     public init(with items:[Item],  expiresIn ttl: Int = 0) {
+        _items = items
         _lastUpdated = Date()
         _ttlInSeconds = ttl
     }
