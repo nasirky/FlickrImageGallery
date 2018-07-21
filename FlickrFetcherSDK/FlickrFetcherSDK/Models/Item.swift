@@ -108,4 +108,12 @@ public class Item {
             return _tags
         }
     }
+    
+    /// Returns item object as array of optional `String`.
+    /// - Parameters:
+    ///   - format: The output format for the date string. It's an Optional parameter. Default value is yyyy-MM-dd HH:mm:ss xx.
+    /// - Returns: The item as an array of optional `String`.
+    public func asArray(dateFormat format: String? = "yyyy-MM-dd HH:mm:ss xx") -> [String?] {
+        return [title, description, dateTaken?.toString(), datePublished?.toString(), tags?.joined(separator: ",")]
+    }
 }
