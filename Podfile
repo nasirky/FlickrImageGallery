@@ -23,11 +23,12 @@ target 'FlickrFetcherSDK' do
     project 'FlickrFetcherSDK/FlickrFetcherSDK.xcodeproj'
     
     target 'FlickrFetcherSDKTests' do
-        inherit! :search_paths        
+        inherit! :search_paths
+        pod 'OHHTTPStubs/Swift'
     end
 end
 
-# Making sure acknowlegments (for the installed pods) are displayed properly under the Phone Settings -> FlickImageGallery->Acknowledgments.
+# Making sure acknowledgments (for the installed pods) are displayed properly under the Phone Settings -> FlickImageGallery->Acknowledgments.
 post_install do | installer |
     require 'fileutils'
     FileUtils.cp_r('Pods/Target Support Files/Pods-FlickrImageGallery/Pods-FlickrImageGallery-acknowledgements.plist', 'FlickrImageGallery/FlickrImageGallery/Settings.bundle/Acknowledgements.plist', :remove_destination => true)
