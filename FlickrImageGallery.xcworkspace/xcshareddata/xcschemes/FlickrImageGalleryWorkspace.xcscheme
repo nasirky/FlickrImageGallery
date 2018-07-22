@@ -29,6 +29,15 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "50ACFB2221027492007EEFAA"
+            BuildableName = "FlickrImageGallery.app"
+            BlueprintName = "FlickrImageGallery"
+            ReferencedContainer = "container:FlickrImageGallery/FlickrImageGallery.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -42,15 +51,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "50ACFAFF2102747F007EEFAA"
-            BuildableName = "FlickrFetcherSDK.framework"
-            BlueprintName = "FlickrFetcherSDK"
-            ReferencedContainer = "container:FlickrFetcherSDK/FlickrFetcherSDK.xcodeproj">
+            BlueprintIdentifier = "50ACFB2221027492007EEFAA"
+            BuildableName = "FlickrImageGallery.app"
+            BlueprintName = "FlickrImageGallery"
+            ReferencedContainer = "container:FlickrImageGallery/FlickrImageGallery.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
