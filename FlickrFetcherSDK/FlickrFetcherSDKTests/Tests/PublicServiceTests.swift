@@ -16,14 +16,14 @@ class PublicServiceTests: XCTestCase {
         super.setUp()
 
         // Setting up the stubs (mocked response) for Public Service. The API response is being stubbed with a similar response (downloaded from the same API) for testing purposes.
-        // To test with a real API call, please comment this line.
-//        PublicServiceStubs.loadStubs()
+        //TODO: comment the line below for real API requests
+        PublicServiceStubs.loadStubs()
     }
     
     override func tearDown() {
         // Unloading the stubs
-        // To test with a real API call, please comment this line.
-//        PublicServiceStubs.unloadStubs()
+        //TODO: comment the line below for real API requests
+        PublicServiceStubs.unloadStubs()
 
         super.tearDown()
     }
@@ -39,6 +39,9 @@ class PublicServiceTests: XCTestCase {
             testExpectation.fulfill()
             
             XCTAssertNil(tags)
+            
+            //TODO: Uncomment the line below to verify that the stubbed/mocked response is being used (do not use it for real api requests, other the test will fail)
+//            XCTAssertEqual(items.first?.title, "Test post 1")
 
             let list = List(with: items)
             let listItems = list.items
