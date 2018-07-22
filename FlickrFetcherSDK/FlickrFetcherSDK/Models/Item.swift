@@ -19,11 +19,11 @@ public class Item {
     private var _datePublished: Date?
     private var _tags: [String]?
 
-    //MARK:- Initializers
+    //MARK:- Initializers (Internal - Not needed outside SDK)
     /// Returns a newly initialized `Item` object with values fetched from the provided JSON Object.
     /// - Parameters:
     ///   - item: `SwiftyJSON`'s JSON object representing the item
-    public init(with item: JSON) {
+    init(with item: JSON) {
         _title = item["title"].stringValue
         
         //We need atleast one type of image (which would always be present for each item of the public feed
@@ -40,6 +40,24 @@ public class Item {
             _tags = item["tags"].stringValue.components(separatedBy: " ")
         }
     }
+    
+    /// Returns a newly initialized `Item` object with the provided values.
+    /// - Parameters:
+    ///   - title: Title of the item
+    ///   - media: The associated media (image)
+    ///   - description: Description of the item
+    ///   - dateTaken: Date the item(photo) was taken
+    ///   - datePublished: Date the item(photo) was published
+    ///   - tags: The associated tags
+    init(_ title: String, _ media: Media, _ description: String, _ dateTaken: Date?, _ datePublished: Date?, _ tags: [String]?) {
+        _title = title
+        _media = media
+        _description = description
+        _dateTaken = dateTaken
+        _datePublished = datePublished
+        _tags = tags
+    }
+
     
     //MARK:- Internal Methods
     /// Filters the original description from the html string provided by Flickr.
@@ -109,11 +127,40 @@ public class Item {
         }
     }
     
+    //MARK:- Public Methods
     /// Returns item object as array of optional `String`.
     /// - Parameters:
     ///   - format: The output format for the date string. It's an Optional parameter. Default value is yyyy-MM-dd HH:mm:ss xx.
     /// - Returns: The item as an array of optional `String`.
     public func asArray(dateFormat format: String? = "yyyy-MM-dd HH:mm:ss xx") -> [String?] {
         return [title, description, dateTaken?.toString(), datePublished?.toString(), tags?.joined(separator: ",")]
+    }
+    
+    //MARK:- Internal copy methods (Used by Unit Tests)
+    func copy() -> Item {
+        let item = Item(title, media, description, dateTaken, datePublished, tags)
+        
+        return item
+    }
+    
+    func copy(publishedOn datePublished:String) -> Item {
+        let date = Date.from(string: datePublished, withFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'")
+        let item = Item(title, media, description, dateTaken, date, tags)
+        
+        return item
+    }
+        
+    func copy(withTags tags: [String]?) -> Item {
+        let item = Item(title, media, description, dateTaken, datePublished, tags)
+        
+        return item
+    }
+}
+
+extension Item: Equatable {
+    /// Mainly written for Unit Testing (to be able to use XCTAssertEqual.
+    /// The best way to differentiate between items would be to assign them a unique id (however, since public feed does not return an item/image id, we are comparing all the elements to each other assuming that two items will not have the exact same data (especially dates (taken & published) and tags).
+    public static func == (lhs: Item, rhs: Item) -> Bool {
+        return lhs.asArray().elementsEqual(rhs.asArray())
     }
 }

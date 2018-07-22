@@ -40,6 +40,19 @@ public class Media {
         }        
     }
     
+    //MARK:- Internal Properties
+    var urlString: String {
+        get {
+            return _urlString
+        }
+    }
+    
+    var imageExtension: String {
+        get {
+            return _imageExtension
+        }
+    }
+    
     //MARK:- Public Properties
     /// Provides the thumbnail url
     public var thumbnailUrl: URL? {
