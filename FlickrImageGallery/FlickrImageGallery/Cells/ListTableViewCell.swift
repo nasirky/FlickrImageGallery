@@ -9,6 +9,7 @@
 import UIKit
 import FlickrFetcherSDK
 
+/// Cell for Displaying the lists (as UICollectionView)
 class ListTableViewCell: UITableViewCell {
     @IBOutlet weak var cvPhotos: UICollectionView!
 
@@ -23,6 +24,11 @@ class ListTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    /// Updates the items and section (parent) index and reloads the list.
+    /// - Parameters:
+    ///   - items: List/Array of 'Item' objects
+    ///   - section: Section Index for the list. It is used to identify which section (of the tableview) this list belongs to. It is useful when communicating which item of which list was tapped (inside `didSelectItemAt`).
+
     public func update(with items: [Item], section index: Int) {
         self.items = items
         self.section = index

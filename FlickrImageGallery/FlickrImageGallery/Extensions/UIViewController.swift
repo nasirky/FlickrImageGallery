@@ -11,7 +11,7 @@ import UIKit
 extension UIViewController {
     /// Presents an alert with a title and message
     /// - Parameters:
-    ///   - title: Title of the alert. Defaul value is the name of the app (BundleName)
+    ///   - title: Title of the alert. Default value is the name of the app (BundleName)
     ///   - message: Message to show
     func showAlert(with title: String? = Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String, _ message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)

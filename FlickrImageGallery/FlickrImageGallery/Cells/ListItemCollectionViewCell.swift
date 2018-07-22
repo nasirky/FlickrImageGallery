@@ -9,10 +9,15 @@
 import UIKit
 import SDWebImage
 
+/// Cell for Displaying the List Items
 class ListItemCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var ivImage: UIImageView!
     
+    /// Updates the text of title label and starts loading the image.
+    /// - Parameters:
+    ///   - title: Title of the Item
+    ///   - url: Url of the image
     public func setup(with title: String, image url: URL?) {
         lblTitle.text = title
 
