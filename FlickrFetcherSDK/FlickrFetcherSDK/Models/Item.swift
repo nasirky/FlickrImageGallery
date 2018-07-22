@@ -158,8 +158,9 @@ public class Item {
 }
 
 extension Item: Equatable {
-    /// Mainly written for Unit Testing (to be able to use XCTAssertEqual.
+    /// Mainly written for Unit Testing (to be able to use XCTAssertEqual).
     /// The best way to differentiate between items would be to assign them a unique id (however, since public feed does not return an item/image id, we are comparing all the elements to each other assuming that two items will not have the exact same data (especially dates (taken & published) and tags).
+    /// Tags should be exactly in the same order for items to match (["test", "kitten"] would match ["test", "kitten"] but will not match ["kitten", "item"]
     public static func == (lhs: Item, rhs: Item) -> Bool {
         return lhs.asArray().elementsEqual(rhs.asArray())
     }
