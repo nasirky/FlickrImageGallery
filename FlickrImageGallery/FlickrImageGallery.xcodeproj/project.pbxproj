@@ -21,6 +21,7 @@
 		50ACFB5A21027F27007EEFAA /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 50ACFB5921027F27007EEFAA /* Settings.bundle */; };
 		50ACFB5C210289FE007EEFAA /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ACFB5B210289FE007EEFAA /* ListTableViewCell.swift */; };
 		50ACFB6021028AA6007EEFAA /* ListItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ACFB5F21028AA6007EEFAA /* ListItemCollectionViewCell.swift */; };
+		50D983962104AD74008AA130 /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D983952104AD74008AA130 /* InfoTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,6 +55,7 @@
 		50ACFB5921027F27007EEFAA /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		50ACFB5B210289FE007EEFAA /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		50ACFB5F21028AA6007EEFAA /* ListItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		50D983952104AD74008AA130 /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
 		EEEE547088CD5480ABFBADD8 /* Pods_FlickrImageGallery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlickrImageGallery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -152,6 +154,7 @@
 			children = (
 				50ACFB5B210289FE007EEFAA /* ListTableViewCell.swift */,
 				50ACFB5F21028AA6007EEFAA /* ListItemCollectionViewCell.swift */,
+				50D983952104AD74008AA130 /* InfoTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50ACFB4E2102775C007EEFAA /* MainViewController.swift in Sources */,
+				50D983962104AD74008AA130 /* InfoTableViewCell.swift in Sources */,
 				50ACFB5C210289FE007EEFAA /* ListTableViewCell.swift in Sources */,
 				501473412103C3AF00B5832F /* ItemInfoViewController.swift in Sources */,
 				5014733D2103AC1C00B5832F /* UIViewController.swift in Sources */,

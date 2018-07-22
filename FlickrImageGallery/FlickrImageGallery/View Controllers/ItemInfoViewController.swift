@@ -37,10 +37,9 @@ extension ItemInfoViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell")!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell") as! InfoTableViewCell
         
-        cell.textLabel?.text = headings[indexPath.row].uppercased()
-        cell.detailTextLabel?.text = itemArray[indexPath.row] ?? "-"
+        cell.update(with: headings[indexPath.row].uppercased(), itemArray[indexPath.row] ?? "-")
         
         return cell
     }
