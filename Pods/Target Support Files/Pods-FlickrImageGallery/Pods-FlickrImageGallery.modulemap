@@ -1,0 +1,6 @@
+framework module Pods_FlickrImageGallery {
+  umbrella header "Pods-FlickrImageGallery-umbrella.h"
+
+  export *
+  module * { export * }
+}

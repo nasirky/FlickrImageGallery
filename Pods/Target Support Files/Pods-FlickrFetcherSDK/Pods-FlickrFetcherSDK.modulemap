@@ -1,0 +1,6 @@
+framework module Pods_FlickrFetcherSDK {
+  umbrella header "Pods-FlickrFetcherSDK-umbrella.h"
+
+  export *
+  module * { export * }
+}
