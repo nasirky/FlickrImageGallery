@@ -60,6 +60,13 @@ public class List {
         return first.datePublished ?? Date() > second.datePublished ?? Date()
     }
     
+    //MARK:- Internal Properites (used by Unit Tests)
+    var ttl: Int {
+        get {
+            return _ttlInSeconds
+        }
+    }
+    
     //MARK:- Public Properties
     /// Array of items of the list
     public var items: [Item] {
@@ -73,7 +80,7 @@ public class List {
     /// - `false`: The application should load the already fetched version of the list
     public var hasExpired: Bool {
         if let differenceInSeconds = Calendar.current.dateComponents([.second], from: _lastUpdated, to: Date()).second {
-            return differenceInSeconds > _ttlInSeconds
+            return differenceInSeconds >= _ttlInSeconds
         }
         
         return false

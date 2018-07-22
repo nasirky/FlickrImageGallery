@@ -31,8 +31,13 @@ public class PublicService {
         Alamofire.request(PublicServiceUrls.publicPhotos, parameters: parameters).responseString { response in
             switch(response.result) {
             case .success:
-                if let data = response.data {
-                    if let json = try? JSON(data: data) {
+                if let error = response.error {
+                    failure?(error.localizedDescription, tags)
+                } else {
+                    // response can either have error or data (in case there is no error, then there should definitely be data), that why I am force unwrapping response.data
+                    let data = response.data!
+                    do {
+                        let json = try JSON(data: data)
                         let itemsJSON = json["items"].arrayValue
                     
                         var items = [Item]()
@@ -40,9 +45,10 @@ public class PublicService {
                             let item = Item(with: item)
                             items.append(item)
                         }
+                        
                         success?(items, tags)
-                    } else {
-                        failure?(String(data: data, encoding: .utf8) ?? "", tags)
+                    } catch (let error) {
+                        failure?(error.localizedDescription, tags)
                     }
                 }
             case .failure(let error):
