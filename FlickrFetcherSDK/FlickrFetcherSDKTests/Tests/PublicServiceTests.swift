@@ -1,0 +1,69 @@
+//
+//  PublicServiceTests.swift
+//  FlickrFetcherSDKTests
+//
+//  Created by Ghulam Nasir.
+//  Copyright © 2018 Ghulam Nasir. All rights reserved.
+//
+import XCTest
+
+@testable import FlickrFetcherSDK
+@testable import SwiftyJSON
+
+/// Testing PublicService. Support for calling the API as well as stubbing (mocked response) the API response
+class PublicServiceTests: XCTestCase {
+    override func setUp() {
+        super.setUp()
+
+        // Setting up the stubs (mocked response) for Public Service. The API response is being stubbed with a similar response (downloaded from the same API) for testing purposes.
+        // To test with a real API call, please comment this line.
+//        PublicServiceStubs.loadStubs()
+    }
+    
+    override func tearDown() {
+        // Unloading the stubs
+        // To test with a real API call, please comment this line.
+//        PublicServiceStubs.unloadStubs()
+
+        super.tearDown()
+    }
+
+    /// Testing the FetchPublicPhotos service. There are two ways to test:
+    /// 1. Using real Network calls
+    /// 2. Without using Network calls (stubbing/mocking the response) -> active by default in this test
+    /// To avoid network uncertainity and to test that the service performs the functionality it is intended to, stubbing/mocking is used. Instead of the original network call, the response is taken from the developer specified file.
+    /// To use real network calls, plesae comment `PublicServiceStubs.loadStubs()` from `setUp()` and `PublicServiceStubs.unloadStubs()` from `tearDown()`
+    func testFetchPublicPhotos() {
+        let testExpectation = expectation(description: "Expecting Public Photo feed")
+        PublicService.sharedInstance.fetchPublicPhotos(with: nil, onSuccess: { (items, tags) in
+            testExpectation.fulfill()
+            
+            XCTAssertNil(tags)
+
+            let list = List(with: items)
+            let listItems = list.items
+            
+            // Testing if List is correctly formed. For more tests (on List and other models), please see `ModelTests`
+            XCTAssertEqual(listItems.count, items.count)
+            XCTAssertEqual(list.ttl, 0)
+
+            XCTAssertEqual(listItems.first,items.first)
+            XCTAssertEqual(listItems.last,items.last)
+            
+            //Generating randomIndex from the array. At the moment, it can also pick the first and last item
+            let randomIndex = Int(arc4random_uniform(UInt32(items.count)))
+            XCTAssertEqual(listItems[randomIndex], items[randomIndex])
+        }, onFailure: { (reason, tags) in
+            testExpectation.fulfill()
+            
+            XCTFail(reason)
+        })
+        
+        waitForExpectations(timeout: 10) { (error) in
+            if let error = error {
+                XCTFail("Error :\(error)")
+            }
+        }
+    }
+}
+
