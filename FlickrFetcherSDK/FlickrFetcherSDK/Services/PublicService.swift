@@ -31,23 +31,23 @@ public class PublicService {
         Alamofire.request(PublicServiceUrls.publicPhotos, parameters: parameters).responseString { response in
             switch(response.result) {
             case .success:
-                if let error = response.error {
-                    failure?(error.localizedDescription, tags)
-                } else {
-                    // response can either have error or data (in case there is no error, then there should definitely be data), that why I am force unwrapping response.data
-                    let data = response.data!
-                    do {
-                        let json = try JSON(data: data)
-                        let itemsJSON = json["items"].arrayValue
+                guard let data = response.data, response.error == nil else {
+                    failure?(response.error?.localizedDescription ?? "An error has occured", tags)
+                    return
+                }
+
+                // response can either have error or data (in case there is no error, then there should definitely be data), that why I am force unwrapping response.data
+                do {
+                    let json = try JSON(data: data)
+                    let itemsJSON = json["items"].arrayValue
                     
-                        let items = itemsJSON.map({ itemJSON in
-                            return Item(with: itemJSON)
-                        })
+                    let items = itemsJSON.map({ itemJSON in
+                        return Item(with: itemJSON)
+                    })
                         
-                        success?(items, tags)
-                    } catch (let error) {
-                        failure?(error.localizedDescription, tags)
-                    }
+                    success?(items, tags)
+                } catch (let error) {
+                    failure?(error.localizedDescription, tags)
                 }
             case .failure(let error):
                 failure?(error.localizedDescription, tags)
