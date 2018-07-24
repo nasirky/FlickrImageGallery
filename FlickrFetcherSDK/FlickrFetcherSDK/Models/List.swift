@@ -79,10 +79,10 @@ public class List {
     /// - `true`: The application should refetch the (latest version) of list from Flickr
     /// - `false`: The application should load the already fetched version of the list
     public var hasExpired: Bool {
-        if let differenceInSeconds = Calendar.current.dateComponents([.second], from: _lastUpdated, to: Date()).second {
-            return differenceInSeconds >= _ttlInSeconds
+        guard let differenceInSeconds = Calendar.current.dateComponents([.second], from: _lastUpdated, to: Date()).second  else {
+            return false
         }
-        
-        return false
+
+        return differenceInSeconds >= _ttlInSeconds
     }
 }

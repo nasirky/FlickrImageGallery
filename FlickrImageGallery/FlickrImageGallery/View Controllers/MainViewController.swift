@@ -42,23 +42,23 @@ class MainViewController: UIViewController {
     
     /// Refreshes the list (clears the current lists so that it is fetched from the server).
     @objc func refreshLists(_ sender: Any) {
-        for i in 0..<lists.count {
-            lists[i] = nil
-        }
+        lists = lists.map { _ in return nil}
         
         tvLists.reloadData()
     }
 
     /// This function is called when the ListItem (photo) is tapped by the user
     @objc func didSelectListItem(_ notification: Notification) {
-        if let userInfo = notification.userInfo {
-            if let indexPath = userInfo["indexPath"] as? IndexPath {
-                if let list = lists[indexPath.section] {
-                    selectedItem = list.items[indexPath.row]
-                    self.performSegue(withIdentifier: "ShowDetailVC", sender: nil)
-                }
-            }
+        guard let indexPath = notification.userInfo?["indexPath"] as? IndexPath else {
+            return
         }
+        
+        guard let list = lists[indexPath.section] else {
+            return
+        }
+
+        selectedItem = list.items[indexPath.row]
+        self.performSegue(withIdentifier: "ShowDetailVC", sender: nil)
     }
     
     // MARK: - Navigation

@@ -27,9 +27,8 @@ public class Item {
         _title = item["title"].stringValue
         
         //We need atleast one type of image (which would always be present for each item of the public feed
-        for key in item["media"].dictionaryValue.keys {
+        if let key = Array(item["media"].dictionaryValue.keys).first {
             _media = Media(with: item["media"][key].stringValue, key)
-            break
         }
         
         _description = filterDescription(item["description"].stringValue)

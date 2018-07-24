@@ -40,11 +40,9 @@ public class PublicService {
                         let json = try JSON(data: data)
                         let itemsJSON = json["items"].arrayValue
                     
-                        var items = [Item]()
-                        for item in itemsJSON {
-                            let item = Item(with: item)
-                            items.append(item)
-                        }
+                        let items = itemsJSON.map({ itemJSON in
+                            return Item(with: itemJSON)
+                        })
                         
                         success?(items, tags)
                     } catch (let error) {

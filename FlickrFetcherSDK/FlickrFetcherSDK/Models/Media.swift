@@ -29,15 +29,16 @@ public class Media {
     ///   - urlString: The Flickr image `url` with `sizeIndentifier` and extension.
     ///   - sizeIdentifier: This identifies the size of the image. m, h, b etc. are some possible values. Please visit [Flick Url Documentation](https://www.flickr.com/services/api/misc.urls.html) for all the sizeIdentifiers
     public init(with urlString: String, _ sizeIdentifier: String) {
-        if let url = URL(string: urlString) {
-            _imageExtension = url.pathExtension
-            
-            //removing size specific data such as _m and also removing extension
-            _urlString = urlString.replacingOccurrences(of: "_\(sizeIdentifier)", with: "").replacingOccurrences(of: ".\(_imageExtension)", with: "")
-        } else {
+        guard let url = URL(string: urlString) else {
             _imageExtension = ""
             _urlString = ""
-        }        
+            return
+        }
+        
+        _imageExtension = url.pathExtension
+            
+        //removing size specific data such as _m and also removing extension
+        _urlString = urlString.replacingOccurrences(of: "_\(sizeIdentifier)", with: "").replacingOccurrences(of: ".\(_imageExtension)", with: "")
     }
     
     //MARK:- Internal Properties
