@@ -10,7 +10,7 @@ import Foundation
 import SwiftyJSON
 
 /// Represents the item returned by Flickr API.
-public class Item {
+public struct Item {
     //MARK:- Private Members
     private var _title: String!
     private var _media: Media!

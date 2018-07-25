@@ -9,7 +9,7 @@
 import Foundation
 
 /// Represents the media (image urls) associated with an `Item`
-public class Media {
+public struct Media {
     //MARK:- Private Members
     private var _urlString: String
     private var _imageExtension: String
