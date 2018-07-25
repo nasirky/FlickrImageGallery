@@ -9,34 +9,13 @@
 import Foundation
 
 /// Represents the list of items and the associated update time and expiry (in seconds)
-public class List {
+public struct List {
     //MARK:- Private Members
     private var _items: [Item]!
     private var _lastUpdated: Date
     private var _ttlInSeconds: Int
     
     //MARK:- Initializers
-    /// Returns a newly initialized `List` object  with an array of `Item` and the expiry time (optional with default value set to 0).
-    /// - Parameters:
-    ///   - items: The list/array of `Item`
-    ///   - ttl: The expiry time (in seconds). This property is used by `hasExpired`. The main purpose of this property is to limit the number of API(network) requests (as per the developer's preference). Setting it to 0 would force `hasExpired` to return `true` every time (asking the application to new API request)
-    public init(with items:[Item],  expiresIn ttl: Int = 0) {
-        _items = items
-        _lastUpdated = Date()
-        _ttlInSeconds = ttl
-    }
-
-    /// Returns a newly initialized `List` object  with an array of `Item`, sorted by the desired sortOrder.
-    /// - Parameters:
-    ///   - items: The list/array of `Item`
-    ///   - sortOrder: The order (none, ascending, descending) to sort the items by (sorted by published date)
-    public init(with items:[Item], sortBy sortOrder: SortOrder) {
-        _lastUpdated = Date()
-        _ttlInSeconds = 0
-        
-        _items = sortOrder == .none ? items : items.sorted(by: sortOrder == .ascending ? sortAscending : sortDescending)
-    }
-
     /// Returns a newly initialized `List` object  with an array of `Item` and the expiry time (optional with default value set to 0).
     /// - Parameters:
     ///   - items: The list/array of `Item`
@@ -47,6 +26,22 @@ public class List {
         _ttlInSeconds = ttl
         
         _items = sortOrder == .none ? items : items.sorted(by: sortOrder == .ascending ? sortAscending : sortDescending)
+    }
+
+    /// Returns a newly initialized `List` object  with an array of `Item` and the expiry time (optional with default value set to 0).
+    /// - Parameters:
+    ///   - items: The list/array of `Item`
+    ///   - ttl: The expiry time (in seconds). This property is used by `hasExpired`. The main purpose of this property is to limit the number of API(network) requests (as per the developer's preference). Setting it to 0 would force `hasExpired` to return `true` every time (asking the application to new API request)
+    public init(with items:[Item],  expiresIn ttl: Int = 0) {
+        self.init(with: items, sortBy: .none, expiresIn: ttl)
+    }
+
+    /// Returns a newly initialized `List` object  with an array of `Item`, sorted by the desired sortOrder.
+    /// - Parameters:
+    ///   - items: The list/array of `Item`
+    ///   - sortOrder: The order (none, ascending, descending) to sort the items by (sorted by published date)
+    public init(with items:[Item], sortBy sortOrder: SortOrder) {
+        self.init(with: items, sortBy: sortOrder, expiresIn: 0)
     }
     
     //MARK:- Internal functions
