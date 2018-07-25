@@ -44,7 +44,7 @@ extension ListTableViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ListItemCell", for: indexPath) as! ListItemCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.ListItemCell, for: indexPath) as! ListItemCollectionViewCell
         
         let listItem = items[indexPath.row]
         cell.setup(with: listItem.title, image: listItem.media.thumbnailUrl)
@@ -59,6 +59,6 @@ extension ListTableViewCell: UICollectionViewDelegate {
         // Otherwise each ListItem cell would have reference to the parent
         let userInfo = ["indexPath": IndexPath.init(row: indexPath.row, section: section)]
         
-        NotificationCenter.default.post(name: NSNotification.Name("DidSelectListItem"), object: nil, userInfo: userInfo)
+        NotificationCenter.default.post(name: NSNotification.Name(Constants.Notifications.ItemSelected), object: nil, userInfo: userInfo)
     }
 }

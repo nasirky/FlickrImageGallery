@@ -29,7 +29,7 @@ class MainViewController: UIViewController {
         
         refreshControl.addTarget(self, action: #selector(refreshLists(_:)), for: .valueChanged)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(didSelectListItem(_:)), name: NSNotification.Name(rawValue: "DidSelectListItem"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didSelectListItem(_:)), name: NSNotification.Name(rawValue: Constants.Notifications.ItemSelected), object: nil)
 
     }
     
@@ -42,7 +42,7 @@ class MainViewController: UIViewController {
 
     /// This function is called when the ListItem (photo) is tapped by the user
     @objc func didSelectListItem(_ notification: Notification) {
-        guard let indexPath = notification.userInfo?["indexPath"] as? IndexPath else {
+        guard let indexPath = notification.userInfo?[Constants.Identifiers.IndexPath] as? IndexPath else {
             return
         }
         
@@ -51,7 +51,7 @@ class MainViewController: UIViewController {
         }
 
         selectedItem = list.items[indexPath.row]
-        self.performSegue(withIdentifier: "ShowDetailVC", sender: nil)
+        self.performSegue(withIdentifier: Constants.Identifiers.ShowDetailVC, sender: nil)
     }
     
     // MARK: - Navigation
@@ -87,16 +87,16 @@ extension MainViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell") as! ListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.ListCell) as! ListTableViewCell
 
         if let list = lists[indexPath.section], !list.hasExpired {
             cell.update(with: list.items, section: indexPath.section)
         } else {
-            let tag = Constants.TableView.tags[indexPath.section]
+            let tag = Constants.TableView.Tags[indexPath.section]
             
             PublicService.sharedInstance.fetchPublicPhotos(with: tag, onSuccess: { [weak self] (items, allTags) in
                 // Fetch the section index (which list to update) on the basis of the tags. This will not work if two sections have the exactly same tags in same order (but that use case does not make sense here)
-                if let index = Constants.TableView.tags.index(of: allTags) {
+                if let index = Constants.TableView.Tags.index(of: allTags) {
                     let list = List(with: items, sortBy: .descending)
                     self?.lists[index] = list
                     
@@ -116,7 +116,7 @@ extension MainViewController: UITableViewDataSource {
                     }
                 }
             }, onFailure: { [weak self] (errorString, allTags) in
-                if let index = Constants.TableView.tags.index(of: allTags) {
+                if let index = Constants.TableView.Tags.index(of: allTags) {
                     self?.showAlert(Constants.TableView.Headers[index].appendingFormat(":%s",errorString))
                 } else {
                     self?.showAlert(errorString)
@@ -134,11 +134,11 @@ extension MainViewController: UITableViewDataSource {
 //MARK: UITableViewDelegate
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return Constants.TableView.Height.header
+        return Constants.TableView.Height.Header
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: Constants.TableView.Height.header))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: Constants.TableView.Height.Header))
 
         let lblTitle = UILabel(frame: view.bounds)
         lblTitle.font = UIFont.boldSystemFont(ofSize: 20)
@@ -150,6 +150,6 @@ extension MainViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return Constants.TableView.Height.footer
+        return Constants.TableView.Height.Footer
     }
 }

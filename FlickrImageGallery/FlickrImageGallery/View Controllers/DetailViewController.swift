@@ -42,7 +42,7 @@ class DetailViewController: UIViewController {
     
     @IBAction func openInBrowser(_ sender: Any) {
         guard let url = item?.media.imageUrl, UIApplication.shared.canOpenURL(url) else {
-            self.showAlert("Oops... Looks like we cannot open this image in browser. Please try another image.")
+            self.showAlert(Constants.Messages.Error.OpenInBrowser)
             return
         }
         
@@ -51,7 +51,7 @@ class DetailViewController: UIViewController {
 
     @IBAction func share(_ sender: Any) {
         guard let image = ivImage.image, imageLoadingComplete else {
-            self.showAlert("Please wait for the image to complete loading and then try again.")
+            self.showAlert(Constants.Messages.Error.Share)
             return
         }
         
