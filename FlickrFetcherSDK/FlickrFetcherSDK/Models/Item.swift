@@ -26,7 +26,7 @@ public struct Item {
     init(with item: JSON) {
         _title = item["title"].stringValue
         
-        //We need atleast one type of image (which would always be present for each item of the public feed
+        // Since there would be at least one key present, we do not need to handle the else condition
         if let key = Array(item["media"].dictionaryValue.keys).first {
             _media = Media(with: item["media"][key].stringValue, key)
         }
