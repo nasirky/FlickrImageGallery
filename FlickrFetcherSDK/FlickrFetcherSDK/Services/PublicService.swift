@@ -28,7 +28,7 @@ public class PublicService {
             parameters["tags"] = tags.joined(separator: ",")    //Flickrs' public feed API takes commas separated tags as input
         }
         
-        Alamofire.request(PublicServiceUrls.publicPhotos, parameters: parameters).responseString { response in
+        Alamofire.request(Urls.FlickrApi.Public.photos, parameters: parameters).responseString { response in
             switch(response.result) {
             case .success:
                 guard let data = response.data, response.error == nil else {

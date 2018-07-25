@@ -12,7 +12,6 @@
 		50ACFB0F21027480007EEFAA /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ACFB0E21027480007EEFAA /* ModelTests.swift */; };
 		50ACFB1121027480007EEFAA /* FlickrFetcherSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 50ACFB032102747F007EEFAA /* FlickrFetcherSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50ACFB6221029E9E007EEFAA /* Urls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ACFB6121029E9E007EEFAA /* Urls.swift */; };
-		50ACFB6421029EB3007EEFAA /* PublicServiceUrls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ACFB6321029EB3007EEFAA /* PublicServiceUrls.swift */; };
 		50ACFB6621029F1E007EEFAA /* PublicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ACFB6521029F1E007EEFAA /* PublicService.swift */; };
 		50ACFB6A21029F98007EEFAA /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ACFB6921029F98007EEFAA /* Item.swift */; };
 		50ACFB6C21029FAD007EEFAA /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ACFB6B21029FAD007EEFAA /* List.swift */; };
@@ -44,7 +43,6 @@
 		50ACFB0E21027480007EEFAA /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		50ACFB1021027480007EEFAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50ACFB6121029E9E007EEFAA /* Urls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Urls.swift; sourceTree = "<group>"; };
-		50ACFB6321029EB3007EEFAA /* PublicServiceUrls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicServiceUrls.swift; sourceTree = "<group>"; };
 		50ACFB6521029F1E007EEFAA /* PublicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicService.swift; sourceTree = "<group>"; };
 		50ACFB6921029F98007EEFAA /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		50ACFB6B21029FAD007EEFAA /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
@@ -125,7 +123,7 @@
 				501473422103D76F00B5832F /* Enums */,
 				50ACFB53210277E2007EEFAA /* Extensions */,
 				50ACFB54210277E8007EEFAA /* Models */,
-				50ACFB55210277F0007EEFAA /* Urls */,
+				50ACFB55210277F0007EEFAA /* Constants */,
 				50ACFB56210277F7007EEFAA /* Services */,
 				50ACFB032102747F007EEFAA /* FlickrFetcherSDK.h */,
 				50ACFB042102747F007EEFAA /* Info.plist */,
@@ -162,13 +160,12 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		50ACFB55210277F0007EEFAA /* Urls */ = {
+		50ACFB55210277F0007EEFAA /* Constants */ = {
 			isa = PBXGroup;
 			children = (
 				50ACFB6121029E9E007EEFAA /* Urls.swift */,
-				50ACFB6321029EB3007EEFAA /* PublicServiceUrls.swift */,
 			);
-			path = Urls;
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		50ACFB56210277F7007EEFAA /* Services */ = {
@@ -389,7 +386,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50ACFB6421029EB3007EEFAA /* PublicServiceUrls.swift in Sources */,
 				50ACFB6A21029F98007EEFAA /* Item.swift in Sources */,
 				50ACFB702102A124007EEFAA /* Date.swift in Sources */,
 				50ACFB6E21029FBE007EEFAA /* Media.swift in Sources */,

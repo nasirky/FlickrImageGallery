@@ -23,7 +23,7 @@ class ModelTests: XCTestCase {
         super.setUp()
         
         // Setting up test data
-        urlString = Urls.feeds.appending("pictures/test_m.jpg")
+        urlString = Urls.FlickrApi.feeds.appending("pictures/test_m.jpg")
         media = Media(with: urlString, "m")
         
         itemDict = ["title" : "First Item",
