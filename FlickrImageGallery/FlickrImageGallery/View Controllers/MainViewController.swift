@@ -14,15 +14,8 @@ class MainViewController: UIViewController {
     @IBOutlet weak var tvLists: UITableView!
     let refreshControl = UIRefreshControl()
 
-    var lists = [List?](repeating: nil, count: 3)   // 3 is the count of sections (sectionHeaders)
+    var lists = [List?](repeating: nil, count: Constants.TableView.Headers.count)
     var selectedItem:Item?
-
-    //MARK: Constants
-    let sectionHeaders = ["Kittens", "Dogs", "Public Feed"]
-    let tags = [["kitten","kittens"],["dog","dogs"],nil]
-
-    let headerHeight:CGFloat = 40
-    let footerHeight:CGFloat = 40
 
     // MARK:- ViewController methods
     override func viewDidLoad() {
@@ -86,7 +79,7 @@ class MainViewController: UIViewController {
 extension MainViewController: UITableViewDataSource {
     // I am using grouped tableview where each section represents a list (so each section has 1 row as the lists are being handled by UICollectionViews). Since I want to make use of section headers and footers, that is the reason I am using this approach (1 section per list).
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionHeaders.count
+        return Constants.TableView.Headers.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -99,37 +92,37 @@ extension MainViewController: UITableViewDataSource {
         if let list = lists[indexPath.section], !list.hasExpired {
             cell.update(with: list.items, section: indexPath.section)
         } else {
-            let tag = tags[indexPath.section]
+            let tag = Constants.TableView.tags[indexPath.section]
             
-            PublicService.sharedInstance.fetchPublicPhotos(with: tag, onSuccess: { (items, allTags) in
+            PublicService.sharedInstance.fetchPublicPhotos(with: tag, onSuccess: { [weak self] (items, allTags) in
                 // Fetch the section index (which list to update) on the basis of the tags. This will not work if two sections have the exactly same tags in same order (but that use case does not make sense here)
-                if let index = self.tags.index(of: allTags) {
+                if let index = Constants.TableView.tags.index(of: allTags) {
                     let list = List(with: items, sortBy: .descending)
-                    self.lists[index] = list
+                    self?.lists[index] = list
                     
                     let indexPath = IndexPath(row: 0, section: index)
-                    let cell = self.tvLists.cellForRow(at: indexPath) as? ListTableViewCell
+                    let cell = self?.tvLists.cellForRow(at: indexPath) as? ListTableViewCell
                     
                     //Updating the cell only if it is visible
-                    if let count = self.tvLists.indexPathsForVisibleRows?.filter({$0 == indexPath}).count, count > 0 {
+                    if let count = self?.tvLists.indexPathsForVisibleRows?.filter({$0 == indexPath}).count, count > 0 {
                         cell?.update(with: list.items, section: index)
                     }
                     
                     //hiding refreshControl when
                     //1. It is already being shown (isRefreshin) and
                     //2. all the lists have loaded
-                    if self.refreshControl.isRefreshing && self.lists.filter({$0 == nil}).count == 0 {
-                        self.refreshControl.endRefreshing()
+                    if self?.refreshControl.isRefreshing ?? false && self?.lists.filter({$0 == nil}).count == 0 {
+                        self?.refreshControl.endRefreshing()
                     }
                 }
-            }, onFailure: {(errorString, allTags) in
-                if let index = self.tags.index(of: allTags) {
-                    self.showAlert("\(self.sectionHeaders[index]):\(errorString)")
+            }, onFailure: { [weak self] (errorString, allTags) in
+                if let index = Constants.TableView.tags.index(of: allTags) {
+                    self?.showAlert(Constants.TableView.Headers[index].appendingFormat(":%s",errorString))
                 } else {
-                    self.showAlert(errorString)
+                    self?.showAlert(errorString)
                 }
                 
-                self.refreshControl.endRefreshing()
+                self?.refreshControl.endRefreshing()
             })
         }
 
@@ -141,22 +134,22 @@ extension MainViewController: UITableViewDataSource {
 //MARK: UITableViewDelegate
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return headerHeight
+        return Constants.TableView.Height.header
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: headerHeight))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: Constants.TableView.Height.header))
 
         let lblTitle = UILabel(frame: view.bounds)
         lblTitle.font = UIFont.boldSystemFont(ofSize: 20)
         lblTitle.textColor = .black
-        lblTitle.text = sectionHeaders[section]
+        lblTitle.text = Constants.TableView.Headers[section]
         view.addSubview(lblTitle)
 
         return view
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return footerHeight
+        return Constants.TableView.Height.footer
     }
 }
