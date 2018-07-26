@@ -22,14 +22,18 @@ The purpose of this project is to access the public photos stream from `Flickr` 
     - SDWebImage
 
 
-## Network Layer
-- **Request**: Represents the Network Requests.
-   -**PublicStreamRequest**: Implements Request protocol for Public Stream specific requests such as fetch public photos etc. Here we define all the components for the public stream request.
-- **Tasks**: Represents a Task. Task is one unit of work (such as fetching public photos, user login etc.)
-   - **PublicPhotosTask**: Represents the Public Photos Fetching Task. It fetches the public stream from Flickr and returns a List object. Conforms to *Tasks* protocol.
-- **Service**: The only layer/component making the network calls. It takes request object and returns a response object (enum). Error handling and conversion to JSON is hapenning inside *Response*.
-  - **ServiceProtocol**: Defining structure for Services.
-  - **FeedsService**: Represents the feeds service of FlickrAPI.
-- **Response**: Represents the response returned by the Service to the Task (Service is the entity executing the network calls and task represents one network call). Error handling and JSON parsing are performed here.
+## Network Layer  
+### Components - Generic  
+Visual Representation can be found [here](https://goo.gl/bf7Hnc).
 
-- **MockService**: Special Service that skips the network call and returns contents (already passed to it). Useful for testing without network
+- **Request**: Represents the Network Request Object. It also has a convenience method to transform the Request into *URLRequest* which can then be provided to *URLSession* or any other networking library such as *Alamofire* etc.
+- **TaskProtocol**: Represents a Task. Task is one unit of work (such as fetching public photos, user login etc.). Task makes a network call (via Service) and then transform the returning (JSON) response into a model.
+- **Service** and **ServiceProtocol**: The layer/component making the network calls. It takes request object and returns a response object (enum). Error handling and *Data* to JSON conversion is performed inside *Response*. *Service Protocol* defines structure of the Service(s).
+- **Response**: Represents the response returned by the Service to the Task (Service is the entity executing the network calls and task represents one API call). It returns well defined output (error or JSON object) to the task.
+
+## Implementation Specific:
+Visual representation can be found [here](https://goo.gl/ZeEMz1).
+
+-**PublicStreamRequest**: Implements *Request* protocol for Public Stream specific requests such as fetch public photos etc. Here we define all the components for each of the public stream requests.
+- **PublicPhotosTask**: Represents the Public Photos Fetching Task. It fetches the public stream from Flickr and returns a List object. Conforms to *Task* protocol.
+- **MockService**: Special Service that skips the network call and returns contents (already passed to it). It is used for Testing purpose (Testing the network layer without actually making a network call).
