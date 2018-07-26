@@ -34,6 +34,6 @@ Visual Representation can be found [here](https://goo.gl/bf7Hnc).
 ## Implementation Specific:
 Visual representation can be found [here](https://goo.gl/ZeEMz1).
 
--**PublicStreamRequest**: Implements *Request* protocol for Public Stream specific requests such as fetch public photos etc. Here we define all the components for each of the public stream requests.
+- **PublicStreamRequest**: Implements *Request* protocol for Public Stream specific requests such as fetch public photos etc. Here we define all the components for each of the public stream requests.
 - **PublicPhotosTask**: Represents the Public Photos Fetching Task. It fetches the public stream from Flickr and returns a List object. Conforms to *Task* protocol.
 - **MockService**: Special Service that skips the network call and returns contents (already passed to it). It is used for Testing purpose (Testing the network layer without actually making a network call).
