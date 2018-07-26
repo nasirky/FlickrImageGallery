@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Subclass of Request for Public Stream specific requests such as fetch public photos etc. Here we define all the components for the public stream request (Adding new request would require adding a new case under Request and then under every subcomponent (such as path, method etc.)
+/// Specialized Request enum/object for Public Stream specific requests such as fetch public photos etc. Here we define all the components for the public stream request (Adding new request would require adding a new case under Request and then under every subcomponent (such as path, method etc.)
 enum PublicStreamRequest: Request {
     case fetchPublicPhotos(tags: [String]?)
     
