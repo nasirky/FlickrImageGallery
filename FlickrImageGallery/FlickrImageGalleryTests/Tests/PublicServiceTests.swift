@@ -55,9 +55,9 @@ class PublicServiceTests: XCTestCase {
             XCTAssertTrue(list.items.count > 0)
             
             successCallback?(list)
-        }) { (error, tags) in
+        }) { (error) in
             testExpectation.fulfill()
-            XCTFail("\(error) for tags (\(String(describing: tags))")
+            XCTFail("Error : \(error.localizedDescription)")
         }
         
         waitForExpectations(timeout: 10) { (error) in
