@@ -27,7 +27,8 @@ public class PublicPhotosTask: Task {
         return PublicStreamRequest.fetchPublicPhotos(tags: tags)
     }
     
-    func execute(in service: Service, onSuccess success: Task.successClosure, onFailure failure: Task.failureClosure) {
+    func execute(in service: Service, onSuccess success: ((T) -> Void)?, onFailure failure:
+        Task.failureClosure) {
         service.execute(self.request) { response in
             switch response {
             case .json(let json):
@@ -36,8 +37,8 @@ public class PublicPhotosTask: Task {
                 })
                 let list = List(withItems: items, withTags: self.tags, sortBy: self.sortOrder, expiresIn: self.ttl)
                 success?(list)
-            case .error(let errorString):
-                failure?(errorString, self.tags)
+            case .error(let error):
+                failure?(error)
             }
         }
     }

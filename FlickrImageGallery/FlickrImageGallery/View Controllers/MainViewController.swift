@@ -116,14 +116,9 @@ extension MainViewController: UITableViewDataSource {
                         self.refreshControl.endRefreshing()
                     }
                 }
-            },  onFailure: { (errorString, allTags) in
-                if let index = Constants.TableView.Tags.index(of: allTags) {
-                    self.showAlert(Constants.TableView.Headers[index].appendingFormat(":%s",errorString))
-                } else {
-                    self.showAlert(errorString)
-                }
-                
-                self.refreshControl.endRefreshing()
+            },  onFailure: { error in
+                    self.showAlert(error.localizedDescription)
+                    self.refreshControl.endRefreshing()
             })
         }
 

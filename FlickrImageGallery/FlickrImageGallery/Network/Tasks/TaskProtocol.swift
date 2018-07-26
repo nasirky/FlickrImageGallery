@@ -10,10 +10,11 @@ import Foundation
 
 /// Represents a Task. Task is one unit of work (such as fetching public photos, user login etc.)
 protocol Task {
+    //Defined to give an idea of the user what type of object does this tasks returns
     associatedtype T
 
-    typealias successClosure = ((List) -> Void)?
-    typealias failureClosure = ((_ error: String, _ tags: [String]?)->Swift.Void)?
+    typealias successClosure = ((T) -> Void)?
+    typealias failureClosure = ((Error) -> Void)?
     
     var request: Request {get}
 
