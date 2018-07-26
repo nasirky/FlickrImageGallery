@@ -1,6 +1,5 @@
 //
 //  Media.swift
-//  FlickrFetcherSDK
 //
 //  Created by Ghulam Nasir.
 //  Copyright © 2018 Ghulam Nasir. All rights reserved.
@@ -11,8 +10,8 @@ import Foundation
 /// Represents the media (image urls) associated with an `Item`
 public struct Media {
     //MARK:- Private Members
-    private var _urlString: String
-    private var _imageExtension: String
+    private (set) var urlString: String
+    private (set) var imageExtension: String
 
     //MARK:- Static Constants
     //Taken from https://www.flickr.com/services/api/misc.urls.html
@@ -30,41 +29,27 @@ public struct Media {
     ///   - sizeIdentifier: This identifies the size of the image. m, h, b etc. are some possible values. Please visit [Flick Url Documentation](https://www.flickr.com/services/api/misc.urls.html) for all the sizeIdentifiers
     public init(with urlString: String, _ sizeIdentifier: String) {
         guard let url = URL(string: urlString) else {
-            _imageExtension = ""
-            _urlString = ""
+            self.imageExtension = ""
+            self.urlString = ""
             return
         }
         
-        _imageExtension = url.pathExtension
+        imageExtension = url.pathExtension
             
         //removing size specific data such as _m and also removing extension
-        _urlString = urlString.replacingOccurrences(of: "_\(sizeIdentifier)", with: "").replacingOccurrences(of: ".\(_imageExtension)", with: "")
-    }
-    
-    //MARK:- Internal Properties
-    var urlString: String {
-        get {
-            return _urlString
-        }
-    }
-    
-    var imageExtension: String {
-        get {
-            return _imageExtension
-        }
+        self.urlString = urlString.replacingOccurrences(of: "_\(sizeIdentifier)", with: "").replacingOccurrences(of: ".\(imageExtension)", with: "")
     }
     
     //MARK:- Public Properties
     /// Provides the thumbnail url
     public var thumbnailUrl: URL? {
-        let urlString = "\(_urlString)\(Media.thumbnailSuffix).\(_imageExtension)"
+        let urlString = "\(self.urlString)\(Media.thumbnailSuffix).\(imageExtension)"
         return URL(string: urlString)
     }
 
     /// Provides the full size image url
     public var imageUrl: URL? {
-        let urlString = "\(_urlString)\(Media.imageSuffix).\(_imageExtension)"
+        let urlString = "\(self.urlString)\(Media.imageSuffix).\(imageExtension)"
         return URL(string: urlString)
     }
-    
 }

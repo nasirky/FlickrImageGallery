@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FlickrFetcherSDK
 
 /// Cell for Displaying the lists (as UICollectionView)
 class ListTableViewCell: UITableViewCell {

@@ -1,6 +1,5 @@
 //
 //  Date.swift
-//  FlickrFetcherSDK
 //
 //  Created by Ghulam Nasir.
 //  Copyright © 2018 Ghulam Nasir. All rights reserved.
