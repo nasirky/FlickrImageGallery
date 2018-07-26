@@ -9,7 +9,7 @@
 import Foundation
 
 /// Represents a Task. Task is one unit of work (such as fetching public photos, user login etc.)
-protocol Task {
+protocol TaskProtocol {
     //Defined to give an idea of the user what type of object does this tasks returns
     associatedtype T
 
@@ -18,7 +18,7 @@ protocol Task {
     
     var request: Request {get}
 
-    func execute(in service: Service,
+    func execute(in service: ServiceProtocol,
                  onSuccess success: successClosure,
                  onFailure failure: failureClosure)
 }
