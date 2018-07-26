@@ -16,8 +16,9 @@ class MainViewController: UIViewController {
     var lists = [List?](repeating: nil, count: Constants.TableView.Headers.count)
     var selectedItem:Item?
 
-    //NOTE: Defining FeedsService object here (as it is not used by any other ViewController)
-    let feedsService = FeedsService()
+    //NOTE:Defining FeedsService object here (as it is not used by any other ViewController)
+    //
+    let feedsService = Service(with: Urls.FlickrApi.feeds)
     
     // MARK:- ViewController methods
     override func viewDidLoad() {

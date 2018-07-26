@@ -12,6 +12,8 @@ import Foundation
 public protocol ServiceProtocol {
     var baseUrl: String {get}
     
+    init(with url: String)
+    
     typealias completionHandler = (Response) -> ()
     func execute(_ request: Request, onCompletion: @escaping completionHandler)
 }

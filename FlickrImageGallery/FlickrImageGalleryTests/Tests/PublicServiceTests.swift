@@ -21,17 +21,17 @@ class PublicServiceTests: XCTestCase {
 
     /// Testing Public Photos Task with Mocked response
     func testMockedPublicPhotosTask() {
-        var data: String?
+        var fileContents: String?
         if let filePath = Bundle(for: type(of: self)).path(forResource: "public_service_response", ofType: "json") {
             do {
-                data = try String(contentsOfFile: filePath)
+                fileContents = try String(contentsOfFile: filePath)
             } catch(let error) {
                 XCTFail(error.localizedDescription)
                 return
             }
         }
         
-        let service = MockedService(data!)
+        let service = MockedService(with: fileContents!)
         testPublicPhotosTask(with: service) { list in
             //Additional testing
             XCTAssertTrue(list.items.first?.title == "Test post 1")
@@ -40,8 +40,8 @@ class PublicServiceTests: XCTestCase {
     
     /// Testing PublicPhotosTask with real network call
     func testPublicPhotosTask() {
-        let service = FeedsService()
-        testPublicPhotosTask(with: service)
+        let feedsService = Service(with: Urls.FlickrApi.feeds)
+        testPublicPhotosTask(with: feedsService)
     }
 
     

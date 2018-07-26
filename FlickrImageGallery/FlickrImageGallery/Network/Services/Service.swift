@@ -14,7 +14,7 @@ import Alamofire
 class Service: ServiceProtocol {
     public var baseUrl: String
 
-    init(with url: String) {
+    required init(with url: String) {
         self.baseUrl = url
     }
     
