@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Defining structure for Services
 public protocol ServiceProtocol {
     var baseUrl: String {get}
     

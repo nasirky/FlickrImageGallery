@@ -7,6 +7,8 @@
 //
 
 import Foundation
+
+/// Service Representing the Feeds (FlickApi/services/feeds)
 class FeedsService: Service {
     public init() {
         super.init(with: Urls.FlickrApi.feeds)

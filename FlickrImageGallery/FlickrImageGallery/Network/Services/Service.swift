@@ -9,6 +9,8 @@
 import Foundation
 import Alamofire
 
+/// The only layer making the network calls. It takes request object and returns a response object (enum)
+/// Error handling and conversion to JSON is hapenning inside Response
 class Service: ServiceProtocol {
     public var baseUrl: String
 
