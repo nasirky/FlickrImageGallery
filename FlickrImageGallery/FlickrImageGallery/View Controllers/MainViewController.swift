@@ -16,6 +16,9 @@ class MainViewController: UIViewController {
     var lists = [List?](repeating: nil, count: Constants.TableView.Headers.count)
     var selectedItem:Item?
 
+    //NOTE: Defining FeedsService object here (as it is not used by any other ViewController)
+    let feedsService = FeedsService()
+    
     // MARK:- ViewController methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,37 +96,36 @@ extension MainViewController: UITableViewDataSource {
         } else {
             let tag = Constants.TableView.Tags[indexPath.section]
             
-/*            PublicService.sharedInstance.fetchPublicPhotos(with: tag, onSuccess: { [weak self] (items, allTags) in
+            PublicPhotosTask(with: tag, sortBy: .none).execute(in: feedsService, onSuccess: { list in
                 // Fetch the section index (which list to update) on the basis of the tags. This will not work if two sections have the exactly same tags in same order (but that use case does not make sense here)
-                if let index = Constants.TableView.Tags.index(of: allTags) {
-                    let list = List(with: items, sortBy: .descending)
-                    self?.lists[index] = list
+                if let index = Constants.TableView.Tags.index(of: list.tags) {
+                    self.lists[index] = list
                     
                     let indexPath = IndexPath(row: 0, section: index)
-                    let cell = self?.tvLists.cellForRow(at: indexPath) as? ListTableViewCell
+                    let cell = self.tvLists.cellForRow(at: indexPath) as? ListTableViewCell
                     
                     //Updating the cell only if it is visible
-                    if let count = self?.tvLists.indexPathsForVisibleRows?.filter({$0 == indexPath}).count, count > 0 {
+                    if let count = self.tvLists.indexPathsForVisibleRows?.filter({$0 == indexPath}).count, count > 0 {
                         cell?.update(with: list.items, section: index)
                     }
                     
                     //hiding refreshControl when
                     //1. It is already being shown (isRefreshin) and
                     //2. all the lists have loaded
-                    if self?.refreshControl.isRefreshing ?? false && self?.lists.filter({$0 == nil}).count == 0 {
-                        self?.refreshControl.endRefreshing()
+                    if self.refreshControl.isRefreshing && self.lists.filter({$0 == nil}).count == 0 {
+                        self.refreshControl.endRefreshing()
                     }
                 }
-            }, onFailure: { [weak self] (errorString, allTags) in
+            },  onFailure: { (errorString, allTags) in
                 if let index = Constants.TableView.Tags.index(of: allTags) {
-                    self?.showAlert(Constants.TableView.Headers[index].appendingFormat(":%s",errorString))
+                    self.showAlert(Constants.TableView.Headers[index].appendingFormat(":%s",errorString))
                 } else {
-                    self?.showAlert(errorString)
+                    self.showAlert(errorString)
                 }
                 
-                self?.refreshControl.endRefreshing()
+                self.refreshControl.endRefreshing()
             })
- */       }
+        }
 
         return cell
     }
