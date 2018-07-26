@@ -9,12 +9,15 @@
 import UIKit
 
 /// MockedService that takes the output data (response) as String and returns it as Response object (by passing the network call in the service)
+/// Another way is to conform to ServiceProtocol (instead of subclassing Service).
 class MockedService: Service {
-    var response: String
-    
-    public init(_ response: String) {
+    /// Stores the mocked response
+    private var response: String
+
+    // utilizing the same initializer that ServiceProtcol uses for initializing baseUrl (just changing the variable name for easy understanding
+    required init(with response: String) {
         self.response = response
-        super.init(with: "")
+        super.init(with: "")  //Url not needed for MockedService
     }
     
     override func execute(_ request: Request, onCompletion: @escaping (Response) -> ()) {
