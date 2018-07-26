@@ -25,10 +25,10 @@
 		5007DBCC210A0C340082B463 /* Urls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5007DBCB210A0C340082B463 /* Urls.swift */; };
 		5007DBDD210A112B0082B463 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5007DBDB210A112B0082B463 /* ModelTests.swift */; };
 		5007DBDE210A112B0082B463 /* PublicServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5007DBDC210A112B0082B463 /* PublicServiceTests.swift */; };
-		5007DBE1210A163F0082B463 /* MockedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5007DBE0210A163F0082B463 /* MockedService.swift */; };
 		5007DBE4210A16650082B463 /* public_service_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 5007DBE3210A16650082B463 /* public_service_response.json */; };
 		5014733D2103AC1C00B5832F /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5014733C2103AC1C00B5832F /* UIViewController.swift */; };
 		501473412103C3AF00B5832F /* ItemInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501473402103C3AF00B5832F /* ItemInfoViewController.swift */; };
+		502BB588210A1E6A0011003F /* MockedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502BB587210A1E6A0011003F /* MockedService.swift */; };
 		50ACFB2721027492007EEFAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ACFB2621027492007EEFAA /* AppDelegate.swift */; };
 		50ACFB2B21027492007EEFAA /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ACFB2A21027492007EEFAA /* DetailViewController.swift */; };
 		50ACFB2E21027492007EEFAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50ACFB2C21027492007EEFAA /* Main.storyboard */; };
@@ -78,10 +78,10 @@
 		5007DBD5210A11170082B463 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5007DBDB210A112B0082B463 /* ModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		5007DBDC210A112B0082B463 /* PublicServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicServiceTests.swift; sourceTree = "<group>"; };
-		5007DBE0210A163F0082B463 /* MockedService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockedService.swift; sourceTree = "<group>"; };
 		5007DBE3210A16650082B463 /* public_service_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = public_service_response.json; sourceTree = "<group>"; };
 		5014733C2103AC1C00B5832F /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		501473402103C3AF00B5832F /* ItemInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInfoViewController.swift; sourceTree = "<group>"; };
+		502BB587210A1E6A0011003F /* MockedService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockedService.swift; sourceTree = "<group>"; };
 		50ACFB2321027492007EEFAA /* FlickrImageGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickrImageGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50ACFB2621027492007EEFAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50ACFB2A21027492007EEFAA /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -170,7 +170,7 @@
 		5007DBB9210A09ED0082B463 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				5007DBDF210A163F0082B463 /* Mocked */,
+				502BB586210A1E6A0011003F /* Mocked */,
 				5007DBBD210A09ED0082B463 /* ServiceProtocol.swift */,
 				5007DBBC210A09ED0082B463 /* Service.swift */,
 				5007DBBE210A09ED0082B463 /* FeedsService.swift */,
@@ -197,15 +197,6 @@
 			path = FlickrImageGalleryTests;
 			sourceTree = "<group>";
 		};
-		5007DBDF210A163F0082B463 /* Mocked */ = {
-			isa = PBXGroup;
-			children = (
-				5007DBE0210A163F0082B463 /* MockedService.swift */,
-			);
-			name = Mocked;
-			path = ../../../../../NetworkLayer/NetworkLayer/Network/Services/Mocked;
-			sourceTree = "<group>";
-		};
 		5007DBE2210A16650082B463 /* StubResponses */ = {
 			isa = PBXGroup;
 			children = (
@@ -230,6 +221,14 @@
 				5014733C2103AC1C00B5832F /* UIViewController.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		502BB586210A1E6A0011003F /* Mocked */ = {
+			isa = PBXGroup;
+			children = (
+				502BB587210A1E6A0011003F /* MockedService.swift */,
+			);
+			path = Mocked;
 			sourceTree = "<group>";
 		};
 		50ACFB1A21027492007EEFAA = {
@@ -502,7 +501,7 @@
 				5007DBA62109FD3D0082B463 /* Media.swift in Sources */,
 				50D983962104AD74008AA130 /* InfoTableViewCell.swift in Sources */,
 				5007DBA92109FD490082B463 /* SortOrder.swift in Sources */,
-				5007DBE1210A163F0082B463 /* MockedService.swift in Sources */,
+				502BB588210A1E6A0011003F /* MockedService.swift in Sources */,
 				5007DBC5210A09ED0082B463 /* Service.swift in Sources */,
 				5007DBCC210A0C340082B463 /* Urls.swift in Sources */,
 				50ACFB5C210289FE007EEFAA /* ListTableViewCell.swift in Sources */,
