@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FlickrFetcherSDK
 import SDWebImage
 
 class DetailViewController: UIViewController {

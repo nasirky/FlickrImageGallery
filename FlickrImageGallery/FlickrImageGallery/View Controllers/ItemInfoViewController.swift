@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FlickrFetcherSDK
 
 class ItemInfoViewController: UIViewController {
     //MARK: UIControls & Variables

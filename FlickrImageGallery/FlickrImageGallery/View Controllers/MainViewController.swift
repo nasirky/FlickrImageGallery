@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FlickrFetcherSDK
 
 class MainViewController: UIViewController {
     //MARK: UIControls & Variables
@@ -94,7 +93,7 @@ extension MainViewController: UITableViewDataSource {
         } else {
             let tag = Constants.TableView.Tags[indexPath.section]
             
-            PublicService.sharedInstance.fetchPublicPhotos(with: tag, onSuccess: { [weak self] (items, allTags) in
+/*            PublicService.sharedInstance.fetchPublicPhotos(with: tag, onSuccess: { [weak self] (items, allTags) in
                 // Fetch the section index (which list to update) on the basis of the tags. This will not work if two sections have the exactly same tags in same order (but that use case does not make sense here)
                 if let index = Constants.TableView.Tags.index(of: allTags) {
                     let list = List(with: items, sortBy: .descending)
@@ -124,7 +123,7 @@ extension MainViewController: UITableViewDataSource {
                 
                 self?.refreshControl.endRefreshing()
             })
-        }
+ */       }
 
         return cell
     }
