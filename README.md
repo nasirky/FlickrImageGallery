@@ -11,73 +11,25 @@ The purpose of this project is to access the public photos stream from `Flickr` 
    3. Opening the image in browser
    4. Showing image metadata in a separate view (clicking the "i" button will show this view)
    5. Order image by date (no sorting, ascending and descending sort by publish date)
-4. **FlickerFetcherSDK** to perform the network calls and returned the data in the form of well-defined models..
+4. **Network Layer** to perform the network calls and returned the data in the form of well-defined models..
    1. Unit Tests (for Models and Network request)
 
 ## Workspace Structure:
 - **FlickrImageGallery**: App that fetches and display the photos along with all the features listen above (points 1-3)
-- **FlickrFetcherSDK**: SDK that makes the network requests and returned well defined Models to the calling app. *UnitTests* are included to test the core functionalities of the SDK.
 - **Pods**: `CocoaPods` is used as the Dependency Manager (installing third party libraries).
-   - **FlickImageGallery** and **FlickrFetcherSDK**: 
-       - Common
-          - Alamofire
-          - SwiftyJSON
-       - FlickrImageGallery Additional
-          - SDWebImage
-   - **FlickrFetcherSDKTests**
-       - OHHTTPStubs/Swift
+    - Alamofire
+    - SwiftyJSON
+    - SDWebImage
 
 
-## Design Decision:
-### 1. Network
+## Network Layer
+- **Request**: Represents the Network Requests.
+   -**PublicStreamRequest**: Implements Request protocol for Public Stream specific requests such as fetch public photos etc. Here we define all the components for the public stream request.
+- **Tasks**: Represents a Task. Task is one unit of work (such as fetching public photos, user login etc.)
+   - **PublicPhotosTask**: Represents the Public Photos Fetching Task. It fetches the public stream from Flickr and returns a List object. Conforms to *Tasks* protocol.
+- **Service**: The only layer/component making the network calls. It takes request object and returns a response object (enum). Error handling and conversion to JSON is hapenning inside *Response*.
+  - **ServiceProtocol**: Defining structure for Services.
+  - **FeedsService**: Represents the feeds service of FlickrAPI.
+- **Response**: Represents the response returned by the Service to the Task (Service is the entity executing the network calls and task represents one network call). Error handling and JSON parsing are performed here.
 
-<dl>
-    <dt>Q: Why use an SDK for Network Calls?</dt>
-    <dd>A: There are a number of advantages of using SDK.
-        <ul>
-            <li>All the network related code is present (and structured) at one place.</li>
-            <li>It is much easier to reuse the code in a different project.</li>
-            <li>The SDK can be built into a Pod and uploaded to Cocoapods.</li>
-        </ul>
-    </dd>
-    <dt>Q: Why use <i>SwiftyJON</i> for JSON Parsing?</dt>
-    <dd>A: SwiftyJSON provides a lot of convenience when dealing with JSON data. </dd>
-    <dt>Q: Why is JSON parsing done in the Models?</dt>
-    <dd>A: 
-        <ul>
-            <li> Doing the JSON parsing in their respective Models relieve the API controller from a lot of overhead (and keeps all the code modular and clean).</li>
-            <li> It makes it much easer to test the models independent of the Controllers.</li>
-        </ul>       
-    </dd>
-    </dd>
-    <dt>Q: Why use SDWebImage?</dt>
-    <dd>A: SDWebImage is a library for downloading (and caching images).
-        <ul>
-            <li>Downloading (asynchronously) and caching images.</li>
-            <li>Progressive Download (Loading the image while it is being downloaded)</li>
-        </ul>
-    </dd>
-
-</dl>
-
-
-### 2. UI/Application
-<dl>
-    <dt>Q: Why is the main screen designed with a <u>UITableView</i> with a <i>UICollectionView</i> as the child of each section?</dt>
-    <dd>A: First of all, the design is that we have a <i>UITableView</i> where every section (having 1 row) represents the list (using <i>UICollectionView</i>. Now answering one by one why each element was chosen:
-        <ul>
-            <li> <b>Why using <i>UITableView</i> as the main container</b>: 
-                <ul>
-                    <li> It is quite an elegant solution (both in terms of UI as well as code).</li>
-                    <li> The design is scalable (It is much easier to add more lists). </li>
-                    <li> Scrolling and Cell reuse ability (better memory management). </li>
-                </ul>
-            </li>
-            <li> <b>Why using sections instead of rows (in <i>UITableView</i>)?</b>: 
-                <ul>
-                    <li>The reason for using sections is that I wanted to utilize the section headers (for list titles) and footers (spacing below the list). </li>
-                </ul>
-            </li>
-        </ul>
-    </dd>
-</dl>
+- **MockService**: Special Service that skips the network call and returns contents (already passed to it). Useful for testing without network
