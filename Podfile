@@ -9,6 +9,10 @@ target 'FlickrImageGallery' do
     pod 'SwiftyJSON'
     pod 'SDWebImage'
     
+    target 'FlickrImageGalleryTests' do
+        inherit! :search_paths
+    end
+    
     project 'FlickrImageGallery/FlickrImageGallery.xcodeproj'
 end
 
