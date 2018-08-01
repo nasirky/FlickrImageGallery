@@ -13,8 +13,6 @@ class ListViewModel {
     var lastUpdated: Date!
     var ttlInSeconds: Int
     
-    private var service = Service(with: Urls.FlickrApi.feeds)
-
     //MARK:- Initializers
     
     public init(expiry ttl: Int = 0) {
@@ -24,8 +22,7 @@ class ListViewModel {
     
     /// Returns a newly initialized `List` object  with an array of `Item` and the expiry time (optional with default value set to 0).
     /// - Parameters:
-    ///   - items: The list/array of `Item`
-    ///   - sortOrder: The order (none, ascending, descending) to sort the items by. Published Date is used for this purpose.
+    ///   - list: The List model object
     ///   - ttl: The expiry time (in seconds). This property is used by `hasExpired`. The main purpose of this property is to limit the number of API(network) requests (as per the developer's preference). Setting it to 0 would force `hasExpired` to return `true` every time (asking the application to new API request)
     public init(withList list: List, expiry ttl: Int = 0) {
         ttlInSeconds = ttl
