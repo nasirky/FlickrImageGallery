@@ -37,6 +37,8 @@
 		50ACFB5A21027F27007EEFAA /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 50ACFB5921027F27007EEFAA /* Settings.bundle */; };
 		50ACFB5C210289FE007EEFAA /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ACFB5B210289FE007EEFAA /* ListTableViewCell.swift */; };
 		50ACFB6021028AA6007EEFAA /* ListItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ACFB5F21028AA6007EEFAA /* ListItemCollectionViewCell.swift */; };
+		50C3C6342110F0B40072FC61 /* ItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3C6332110F0B40072FC61 /* ItemViewModel.swift */; };
+		50C3C6362110F7910072FC61 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3C6352110F7910072FC61 /* ListViewModel.swift */; };
 		50D983962104AD74008AA130 /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D983952104AD74008AA130 /* InfoTableViewCell.swift */; };
 		B4BAD148F122288C010D3C4E /* Pods_FlickrImageGalleryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A142C7A08AE26600288AEC1 /* Pods_FlickrImageGalleryTests.framework */; };
 		F800895789365A68587E5F5D /* Pods_FlickrImageGallery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15DDA10D878A0A277A338BFC /* Pods_FlickrImageGallery.framework */; };
@@ -91,6 +93,8 @@
 		50ACFB5921027F27007EEFAA /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		50ACFB5B210289FE007EEFAA /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		50ACFB5F21028AA6007EEFAA /* ListItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		50C3C6332110F0B40072FC61 /* ItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewModel.swift; sourceTree = "<group>"; };
+		50C3C6352110F7910072FC61 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		50D983952104AD74008AA130 /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
 		5CD0BBCCD612F5FC1A61B3FB /* Pods-FlickrImageGalleryTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickrImageGalleryTests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-FlickrImageGalleryTests/Pods-FlickrImageGalleryTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C93185C59D2559AF039E6541 /* Pods-FlickrImageGalleryTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickrImageGalleryTests.release.xcconfig"; path = "../Pods/Target Support Files/Pods-FlickrImageGalleryTests/Pods-FlickrImageGalleryTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -252,11 +256,12 @@
 			isa = PBXGroup;
 			children = (
 				5014733B2103AC0A00B5832F /* Extensions */,
-				50ACFB58210278AB007EEFAA /* Cells */,
 				50ACFB4F21027763007EEFAA /* Storyboards */,
 				5007DBA02109FD3D0082B463 /* Models */,
-				5007DBAF210A09ED0082B463 /* Network */,
+				50C3C6302110E8080072FC61 /* ViewModels */,
 				50ACFB4C21027560007EEFAA /* View Controllers */,
+				50ACFB58210278AB007EEFAA /* Cells */,
+				5007DBAF210A09ED0082B463 /* Network */,
 				50ACFB2621027492007EEFAA /* AppDelegate.swift */,
 				47B1B88E21085BF90098B7FB /* Constants.swift */,
 				50ACFB2F21027494007EEFAA /* Assets.xcassets */,
@@ -293,6 +298,15 @@
 				50D983952104AD74008AA130 /* InfoTableViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		50C3C6302110E8080072FC61 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				50C3C6332110F0B40072FC61 /* ItemViewModel.swift */,
+				50C3C6352110F7910072FC61 /* ListViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		57F0218269A2472F89D2C1C4 /* Pods */ = {
@@ -504,6 +518,7 @@
 				50ACFB5C210289FE007EEFAA /* ListTableViewCell.swift in Sources */,
 				5007DBC2210A09ED0082B463 /* PublicStreamRequest.swift in Sources */,
 				501473412103C3AF00B5832F /* ItemInfoViewController.swift in Sources */,
+				50C3C6342110F0B40072FC61 /* ItemViewModel.swift in Sources */,
 				5014733D2103AC1C00B5832F /* UIViewController.swift in Sources */,
 				5007DBA52109FD3D0082B463 /* List.swift in Sources */,
 				5007DBC3210A09ED0082B463 /* Request.swift in Sources */,
@@ -512,6 +527,7 @@
 				50ACFB2B21027492007EEFAA /* DetailViewController.swift in Sources */,
 				50ACFB2721027492007EEFAA /* AppDelegate.swift in Sources */,
 				5007DBCA210A0A1B0082B463 /* HTTPMethod.swift in Sources */,
+				50C3C6362110F7910072FC61 /* ListViewModel.swift in Sources */,
 				50ACFB6021028AA6007EEFAA /* ListItemCollectionViewCell.swift in Sources */,
 				47B1B88F21085BF90098B7FB /* Constants.swift in Sources */,
 				5007DBC6210A09ED0082B463 /* ServiceProtocol.swift in Sources */,

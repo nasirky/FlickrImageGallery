@@ -11,9 +11,12 @@ import UIKit
 
 struct Constants {
     struct TableView {
-        static let Headers = ["Kittens", "Dogs", "Public Feed"]
-        static let Tags = [["kitten","kittens"],["dog","dogs"],nil]
+        static let Headers = ["Kittens", "Dogs", "Public Feed", "Beaches", "Lakes"]
+        static let Tags = [["kitten","kittens"],["dog","dogs"],nil, ["beach"], ["lake"]]
         
+        static let ItemSortOrder = SortOrder.none
+        static let Ttl = 0
+
         struct Height {
             static let Header: CGFloat = 40
             static let Footer: CGFloat = 40

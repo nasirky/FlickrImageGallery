@@ -12,7 +12,7 @@ class ItemInfoViewController: UIViewController {
     //MARK: UIControls & Variables
     @IBOutlet weak var tvInfo: UITableView!
 
-    var itemArray: [String?]!
+    var itemViewModel: ItemViewModel?
 
     // MARK:- ViewController methods
     override func viewDidLoad() {
@@ -35,7 +35,7 @@ extension ItemInfoViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.InfoCell) as! InfoTableViewCell
         
-        cell.update(with: Constants.Info.Headings[indexPath.row].uppercased(), itemArray[indexPath.row] ?? "-")
+        cell.update(with: Constants.Info.Headings[indexPath.row].uppercased(), itemViewModel?.itemAsArray(true) [indexPath.row] ?? "-")
         
         return cell
     }
