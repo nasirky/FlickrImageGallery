@@ -22,13 +22,16 @@ class PublicServiceTests: XCTestCase {
     /// Testing Public Photos Task with Mocked response
     func testMockedPublicPhotosTask() {
         var fileContents: String?
-        if let filePath = Bundle(for: type(of: self)).path(forResource: "public_service_response", ofType: "json") {
-            do {
-                fileContents = try String(contentsOfFile: filePath)
-            } catch(let error) {
-                XCTFail(error.localizedDescription)
-                return
-            }
+        guard let filePath = Bundle(for: type(of: self)).path(forResource: "public_service_response", ofType: "json") else {
+            XCTFail("Unable to open file")
+            return
+        }
+
+        do {
+            fileContents = try String(contentsOfFile: filePath)
+        } catch(let error) {
+            XCTFail(error.localizedDescription)
+            return
         }
         
         let service = MockedService(with: fileContents!)
@@ -49,7 +52,7 @@ class PublicServiceTests: XCTestCase {
     func testPublicPhotosTask(with service: Service, onSuccess successCallback: (((List) -> Void)?) = nil) {
         let testExpectation = expectation(description: "Expecting Public photos feed")
         
-        let task = PublicPhotosTask(with: nil, sortBy: .none)
+        let task = PublicPhotosTask(with: nil)
         task.execute(in: service, onSuccess: { list in
             testExpectation.fulfill()
             XCTAssertTrue(list.items.count > 0)
