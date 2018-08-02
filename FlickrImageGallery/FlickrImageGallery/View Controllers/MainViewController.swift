@@ -7,16 +7,17 @@
 //
 
 import UIKit
-import FlickrFetcherSDK
 
 class MainViewController: UIViewController {
     //MARK: UIControls & Variables
     @IBOutlet weak var tvLists: UITableView!
     let refreshControl = UIRefreshControl()
 
-    var lists = [List?](repeating: nil, count: Constants.TableView.Headers.count)
-    var selectedItem:Item?
+    var listViewModels = [ListViewModel?](repeating: nil, count: Constants.TableView.Headers.count)
+    var selectedItemViewModel:ItemViewModel?
 
+    let feedService = Service(with: Urls.FlickrApi.feeds)
+    
     // MARK:- ViewController methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,22 +36,20 @@ class MainViewController: UIViewController {
     
     /// Refreshes the list (clears the current lists so that it is fetched from the server).
     @objc func refreshLists(_ sender: Any) {
-        lists = lists.map { _ in return nil}
+        listViewModels.forEach { listViewModel in
+            listViewModel?.expireForcefully()
+        }
         
         tvLists.reloadData()
     }
 
     /// This function is called when the ListItem (photo) is tapped by the user
     @objc func didSelectListItem(_ notification: Notification) {
-        guard let indexPath = notification.userInfo?[Constants.Identifiers.IndexPath] as? IndexPath else {
-            return
-        }
-        
-        guard let list = lists[indexPath.section] else {
+        guard let itemViewModel = notification.object as? ItemViewModel else {
             return
         }
 
-        selectedItem = list.items[indexPath.row]
+        selectedItemViewModel = itemViewModel
         self.performSegue(withIdentifier: Constants.Identifiers.ShowDetailVC, sender: nil)
     }
     
@@ -58,7 +57,7 @@ class MainViewController: UIViewController {
     /// Passing the selected Item to the DetailViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let viewController = segue.destination as? DetailViewController {
-            viewController.item = selectedItem
+            viewController.itemViewModel = selectedItemViewModel
         }
     }
     
@@ -89,46 +88,34 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.ListCell) as! ListTableViewCell
 
-        if let list = lists[indexPath.section], !list.hasExpired {
-            cell.update(with: list.items, section: indexPath.section)
-        } else {
-            let tag = Constants.TableView.Tags[indexPath.section]
-            
-            PublicService.sharedInstance.fetchPublicPhotos(with: tag, onSuccess: { [weak self] (items, allTags) in
-                // Fetch the section index (which list to update) on the basis of the tags. This will not work if two sections have the exactly same tags in same order (but that use case does not make sense here)
-                if let index = Constants.TableView.Tags.index(of: allTags) {
-                    let list = List(with: items, sortBy: .descending)
-                    self?.lists[index] = list
-                    
-                    let indexPath = IndexPath(row: 0, section: index)
-                    let cell = self?.tvLists.cellForRow(at: indexPath) as? ListTableViewCell
-                    
-                    //Updating the cell only if it is visible
-                    if let count = self?.tvLists.indexPathsForVisibleRows?.filter({$0 == indexPath}).count, count > 0 {
-                        cell?.update(with: list.items, section: index)
-                    }
-                    
-                    //hiding refreshControl when
-                    //1. It is already being shown (isRefreshin) and
-                    //2. all the lists have loaded
-                    if self?.refreshControl.isRefreshing ?? false && self?.lists.filter({$0 == nil}).count == 0 {
-                        self?.refreshControl.endRefreshing()
-                    }
-                }
-            }, onFailure: { [weak self] (errorString, allTags) in
-                if let index = Constants.TableView.Tags.index(of: allTags) {
-                    self?.showAlert(Constants.TableView.Headers[index].appendingFormat(":%s",errorString))
-                } else {
-                    self?.showAlert(errorString)
-                }
-                
-                self?.refreshControl.endRefreshing()
-            })
+        var listViewModel = listViewModels[indexPath.section]
+        if listViewModel == nil {
+            listViewModel = ListViewModel(with: feedService, forTags: Constants.TableView.Tags[indexPath.section], sortBy: Constants.TableView.ItemSortOrder, ttlInSeconds: Constants.TableView.Ttl)
         }
+        
+        //Clearing up the cell
+        cell.update(with: [ItemViewModel]())
+        
+        cell.tag = indexPath.section
+        
+        listViewModel?.itemViewModels { [unowned self] (itemViewModels, error) in
+            self.refreshControl.endRefreshing()
 
+            if let error = error {
+                self.showAlert(error)
+                return
+            }
+
+            // Making sure the cell is visible before we update
+            guard tableView.visibleCells.filter({$0==cell}).count > 0 else {
+                return
+            }
+
+            cell.update(with: itemViewModels!)
+        }
+        
         return cell
     }
-
 }
 
 //MARK: UITableViewDelegate

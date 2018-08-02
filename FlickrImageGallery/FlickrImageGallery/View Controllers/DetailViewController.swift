@@ -7,14 +7,13 @@
 //
 
 import UIKit
-import FlickrFetcherSDK
 import SDWebImage
 
 class DetailViewController: UIViewController {
     // MARK: UIControls & Variables
     @IBOutlet weak var ivImage: UIImageView!
 
-    var item: Item?
+    var itemViewModel: ItemViewModel?
     //Since we are using progressiveDownload, we need a way to know if the image has downloaded/loaded completely
     //as we will allow share function only after image has been completely downloaded/loaded.
     var imageLoadingComplete = false
@@ -23,7 +22,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = item?.title
+        self.navigationItem.title = itemViewModel?.title
     
         //An extra visual clue for the user to know if the image is still being loaded
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
@@ -33,7 +32,7 @@ class DetailViewController: UIViewController {
         ivImage.sd_setIndicatorStyle(.gray)
         
         //Using progressiveDownload so that the image starts loading as it is downloaded. It gives user the visual look of the progress.
-        ivImage.sd_setImage(with: item?.media.imageUrl, placeholderImage: nil, options: .progressiveDownload){ (_, _, _, _) in
+        ivImage.sd_setImage(with: itemViewModel?.imageUrl, placeholderImage: nil, options: .progressiveDownload){ (_, _, _, _) in
             self.imageLoadingComplete = true
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
@@ -41,7 +40,7 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func openInBrowser(_ sender: Any) {
-        guard let url = item?.media.imageUrl, UIApplication.shared.canOpenURL(url) else {
+        guard let url = itemViewModel?.imageUrl, UIApplication.shared.canOpenURL(url) else {
             self.showAlert(Constants.Messages.Error.OpenInBrowser)
             return
         }
@@ -66,7 +65,7 @@ class DetailViewController: UIViewController {
     /// Passing the Item to the ItemInfoViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let viewController = segue.destination as? ItemInfoViewController {
-            viewController.itemArray = item?.asArray()
+            viewController.itemViewModel = itemViewModel
         }
     }
     
