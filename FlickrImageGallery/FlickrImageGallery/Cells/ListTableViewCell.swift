@@ -12,12 +12,7 @@ import UIKit
 class ListTableViewCell: UITableViewCell {
     @IBOutlet weak var cvPhotos: UICollectionView!
 
-    var itemViewModels = [ItemViewModel]() {
-        didSet {
-            
-        }
-    }
-    var section: Int = -1   //the corresponding parent section
+    var itemViewModels = [ItemViewModel]()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,16 +24,12 @@ class ListTableViewCell: UITableViewCell {
     
     /// Updates the items and section (parent) index and reloads the list.
     /// - Parameters:
-    ///   - items: List/Array of 'Item' objects
-    ///   - section: Section Index for the list. It is used to identify which section (of the tableview) this list belongs to. It is useful when communicating which item of which list was tapped (inside `didSelectItemAt`).
-
-    public func update(with itemViewModels: [ItemViewModel], section index: Int) {
+    ///   - items: List/Array of 'ItemViewModel' objects
+    public func update(with itemViewModels: [ItemViewModel]) {
         self.itemViewModels = itemViewModels
-        self.section = index
 
         cvPhotos.reloadData()
     }
-
 }
 
 extension ListTableViewCell: UICollectionViewDataSource {
@@ -50,7 +41,7 @@ extension ListTableViewCell: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.ListItemCell, for: indexPath) as! ListItemCollectionViewCell
         
         let itemViewModel = itemViewModels[indexPath.row]
-        cell.setup(with: itemViewModel.title, image: itemViewModel.thumbnailUrl)
+        cell.configure(with: itemViewModel.title, image: itemViewModel.thumbnailUrl)
 
         return cell
     }
@@ -58,9 +49,7 @@ extension ListTableViewCell: UICollectionViewDataSource {
 
 extension ListTableViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // Using Notifications instead of delegation as I think Notification is much cleaner approach in this case
-        // Otherwise each ListItem cell would have reference to the parent
-//        let userInfo = ["indexPath": IndexPath.init(row: indexPath.row, section: section)]
+        // Using Notifications instead of delegation as I think Notification is much cleaner approach in this case. Otherwise each ListItem cell would have reference to the parent
         
         NotificationCenter.default.post(name: NSNotification.Name(Constants.Notifications.ItemSelected), object: itemViewModels[indexPath.row], userInfo: nil)
     }

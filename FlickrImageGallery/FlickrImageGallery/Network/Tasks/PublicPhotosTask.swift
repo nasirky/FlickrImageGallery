@@ -30,7 +30,7 @@ public class PublicPhotosTask: TaskProtocol {
                 let items = json["items"].arrayValue.map({ itemJSON in
                     return Item(with: itemJSON)
                 })
-                let list = List(withItems: items, forTags: self.tags)
+                let list = List(withItems: items)
                 success?(list)
             case .error(let error):
                 failure?(error)

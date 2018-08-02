@@ -13,10 +13,16 @@ struct ItemViewModel {
     private var item: Item!
 
     //MARK:- Initializers
+    /// Returns a newly initialized `ItemViewModel` object with the `Item` model's values fetched from the provided item JSON Object.
+    /// - Parameters:
+    ///   - item: SwiftyJSON's JSON representation of the item
     init(with item: JSON) {
         self.item = Item(with: item)
     }
 
+    /// Returns a newly initialized `ItemViewModel` object, initialized with the `Item` model/object.
+    /// - Parameters:
+    ///   - item: `Item` object
     init(with item: Item) {
         self.item = item
     }

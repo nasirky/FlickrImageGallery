@@ -28,7 +28,6 @@ struct Constants {
         static let ListItemCell = "ListItemCell"
         static let InfoCell = "InfoCell"
         static let ShowDetailVC = "ShowDetailVC"
-        static let IndexPath = "indexPath"
     }
     
     struct Notifications {

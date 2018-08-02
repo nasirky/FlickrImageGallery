@@ -11,15 +11,12 @@ import Foundation
 public class List {
     //MARK:- Private Members
     private (set) var items: [Item]
-    private (set) var tags: [String]?
     
     //MARK:- Initializers
     /// Returns a newly initialized `List` object  with an array of `Item` and the expiry time (optional with default value set to 0).
     /// - Parameters:
-    ///   - items: The list/array of `Item`
-    ///   - tags: The list/array of `tags`
-    public init(withItems items:[Item], forTags tags: [String]? = nil) {
-        self.tags = tags
+    ///   - items: The list of items
+    public init(withItems items:[Item]) {
         self.items = items
-    }
+    }    
 }
