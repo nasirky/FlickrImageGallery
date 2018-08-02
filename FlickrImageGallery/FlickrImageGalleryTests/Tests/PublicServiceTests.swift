@@ -11,30 +11,27 @@ import XCTest
 
 /// Testing PublicService. Support for calling the API as well as stubbing (mocked response) the API response
 class PublicServiceTests: XCTestCase {
+    var helper: Helper?
+    
     override func setUp() {
         super.setUp()
+        helper = Helper()
     }
     
     override func tearDown() {
         super.tearDown()
+        
+        helper = nil
     }
 
     /// Testing Public Photos Task with Mocked response
     func testMockedPublicPhotosTask() {
-        var fileContents: String?
-        guard let filePath = Bundle(for: type(of: self)).path(forResource: "public_service_response", ofType: "json") else {
-            XCTFail("Unable to open file")
-            return
-        }
-
-        do {
-            fileContents = try String(contentsOfFile: filePath)
-        } catch(let error) {
-            XCTFail(error.localizedDescription)
+        guard let fileContents = helper?.fetchFileContent(from: "public_photo_stream_response", withExtension: "json") else {
+            XCTFail("Error reading file")
             return
         }
         
-        let service = MockedService(with: fileContents!)
+        let service = MockedService(with: fileContents)
         testPublicPhotosTask(with: service) { list in
             //Additional testing
             XCTAssertTrue(list.items.first?.title == "Test post 1")
