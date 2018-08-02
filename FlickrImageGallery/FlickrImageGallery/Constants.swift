@@ -14,6 +14,9 @@ struct Constants {
         static let Headers = ["Kittens", "Dogs", "Public Feed"]
         static let Tags = [["kitten","kittens"],["dog","dogs"],nil]
         
+        static let ItemSortOrder = SortOrder.none
+        static let Ttl = 0
+
         struct Height {
             static let Header: CGFloat = 40
             static let Footer: CGFloat = 40
@@ -25,7 +28,6 @@ struct Constants {
         static let ListItemCell = "ListItemCell"
         static let InfoCell = "InfoCell"
         static let ShowDetailVC = "ShowDetailVC"
-        static let IndexPath = "indexPath"
     }
     
     struct Notifications {

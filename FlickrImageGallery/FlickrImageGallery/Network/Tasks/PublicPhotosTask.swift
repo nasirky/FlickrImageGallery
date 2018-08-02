@@ -14,13 +14,9 @@ public class PublicPhotosTask: TaskProtocol {
     typealias T = List
     
     var tags: [String]?
-    var sortOrder: SortOrder
-    var ttl: Int
 
-    public init(with tags: [String]?, sortBy sortOrder: SortOrder, expiresIn ttl: Int = 0) {
+    public init(with tags: [String]? = nil) {
         self.tags = tags
-        self.sortOrder = sortOrder
-        self.ttl = ttl
     }
     
     var request: Request {
@@ -34,7 +30,7 @@ public class PublicPhotosTask: TaskProtocol {
                 let items = json["items"].arrayValue.map({ itemJSON in
                     return Item(with: itemJSON)
                 })
-                let list = List(withItems: items, withTags: self.tags, sortBy: self.sortOrder, expiresIn: self.ttl)
+                let list = List(withItems: items)
                 success?(list)
             case .error(let error):
                 failure?(error)
