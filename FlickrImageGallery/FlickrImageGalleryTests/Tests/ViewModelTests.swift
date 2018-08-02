@@ -65,13 +65,13 @@ class ViewModelTests: XCTestCase {
         XCTAssertEqual(itemViewModel.dateTaken, Date.from(string: dateTakenString))
         
         let datePublishedString = itemDict["published"] as! String
-        XCTAssertEqual(itemViewModel.datePublished, Date.from(string: datePublishedString, withFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'"))
+        XCTAssertEqual(itemViewModel.datePublished?.toString(withFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'"), datePublishedString)
 
         // Trying to convert date strings (taken and published) to date using wrong format (any format other than their original one). In this case, I am using published date's format for taken date and vice versa.
-        XCTAssertNotEqual(itemViewModel.dateTaken, Date.from(string: dateTakenString, withFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'"))
+        XCTAssertNotEqual(itemViewModel.dateTaken?.toString(withFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'"), dateTakenString)
         XCTAssertNotEqual(itemViewModel.datePublished, Date.from(string: datePublishedString))
         
-        XCTAssertEqual(itemViewModel.tags, (itemDict["tags"] as! String).components(separatedBy: " "))
+        XCTAssertEqual(itemViewModel.tags, (itemDict["tags"] as? String ?? "").components(separatedBy: " "))
     }
     
     func testListCreationAndExpiry() {
