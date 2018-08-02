@@ -15,10 +15,8 @@ class MainViewController: UIViewController {
 
     var listViewModels = [ListViewModel?](repeating: nil, count: Constants.TableView.Headers.count)
     var selectedItemViewModel:ItemViewModel?
-    
-    //NOTE:Defining FeedsService object here (as it is not used by any other ViewController)
-    //
-    let feedsService = Service(with: Urls.FlickrApi.feeds)
+
+    let feedService = Service(with: Urls.FlickrApi.feeds)
     
     // MARK:- ViewController methods
     override func viewDidLoad() {
@@ -90,35 +88,32 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.ListCell) as! ListTableViewCell
 
-        if let listViewModel =  listViewModels[indexPath.section], !listViewModel.hasExpired {
-            let itemViewModels = listViewModel.itemViewModels(sortBy: Constants.TableView.ItemSortOrder)
-            cell.update(with: itemViewModels, section: indexPath.section)
-        } else {
-            cell.update(with: [ItemViewModel](), section: indexPath.section)
-
-            let tag = Constants.TableView.Tags[indexPath.section]
-            
-            PublicPhotosTask(with: tag).execute(in: feedsService, onSuccess: { list in
-                // Fetch the section index (which list to update) on the basis of the tags. This will not work if two sections have the exactly same tags in same order (but that use case does not make sense here)
-                self.refreshControl.endRefreshing()
-                
-                guard let index = Constants.TableView.Tags.index(of: list.tags) else {
-                    return
-                }
-                if let listViewModel = self.listViewModels[index] {
-                    listViewModel.update(withList: list)
-                } else {
-                    self.listViewModels[index] = ListViewModel(withList: list, expiry:Constants.TableView.Ttl)
-                }
-                
-                let indexPath = IndexPath(row: 0, section: index)
-                self.updateCellIfVisible(at: indexPath)
-            },  onFailure: { error in
-                    self.showAlert(error.localizedDescription)
-                    self.refreshControl.endRefreshing()
-            })
+        var listViewModel = listViewModels[indexPath.section]
+        if listViewModel == nil {
+            listViewModel = ListViewModel(with: feedService, forTags: Constants.TableView.Tags[indexPath.section], sortBy: Constants.TableView.ItemSortOrder, ttlInSeconds: Constants.TableView.Ttl)
         }
+        
+        //Clearing up the cell
+        cell.update(with: [ItemViewModel]())
+        
+        cell.tag = indexPath.section
+        
+        listViewModel?.itemViewModels { [unowned self] (itemViewModels, error) in
+            self.refreshControl.endRefreshing()
 
+            if let error = error {
+                self.showAlert(error)
+                return
+            }
+
+            // Making sure the cell is visible before we update
+            guard tableView.visibleCells.filter({$0==cell}).count > 0 else {
+                return
+            }
+
+            cell.update(with: itemViewModels!)
+        }
+        
         return cell
     }
 }
@@ -143,22 +138,5 @@ extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return Constants.TableView.Height.Footer
-    }
-}
-
-extension MainViewController {
-    func updateCellIfVisible(at indexPath: IndexPath) {
-        let cell = self.tvLists.cellForRow(at: indexPath) as? ListTableViewCell
-        
-        //Updating the cell only if it is visible
-        guard let count = self.tvLists.indexPathsForVisibleRows?.filter({$0 == indexPath}).count, count > 0 else {
-            return
-        }
-        
-        guard let itemViewModels = self.listViewModels[indexPath.section]?.itemViewModels(sortBy: Constants.TableView.ItemSortOrder) else {
-            return
-        }
-        
-        cell?.update(with:itemViewModels, section: indexPath.section)
     }
 }
