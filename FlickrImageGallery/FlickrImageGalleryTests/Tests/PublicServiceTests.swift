@@ -60,7 +60,7 @@ class PublicServiceTests: XCTestCase {
             XCTFail("Error : \(error.localizedDescription)")
         }
         
-        waitForExpectations(timeout: 10) { (error) in
+        waitForExpectations(timeout: 15) { (error) in
             if let error = error {
                 XCTFail("Error :\(error)")
             }

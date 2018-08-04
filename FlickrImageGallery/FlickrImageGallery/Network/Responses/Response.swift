@@ -8,12 +8,11 @@
 
 import Foundation
 import UIKit
-import SwiftyJSON
 
 /// Represents the response returned by the Service to the Task (Service is the entity executing the network calls and task represents one network call). Error handling and JSON parsing are performed here
 public enum Response {
-    case json(_: JSON)
     case error(_: Error)
+    case data(_: Data)
     
     init(with data: Data?, _ error: Error?) {
         guard error == nil else {
@@ -26,6 +25,6 @@ public enum Response {
             return
         }
         
-        self = .json(JSON(data))
+        self = .data(data)
     }
 }
