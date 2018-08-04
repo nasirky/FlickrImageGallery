@@ -7,7 +7,6 @@
 import XCTest
 
 @testable import FlickrImageGallery
-@testable import SwiftyJSON
 
 /// Testing PublicService. Support for calling the API as well as stubbing (mocked response) the API response
 class PublicServiceTests: XCTestCase {
