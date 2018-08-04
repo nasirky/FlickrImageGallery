@@ -7,6 +7,6 @@
 //
 
 import Foundation
-struct PublicStream: Codable {
-    let items:[Item]
+public struct APIResponse: Codable {
+    let items: [Item]!
 }

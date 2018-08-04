@@ -25,16 +25,9 @@ public class PublicPhotosTask: TaskProtocol {
     func execute(in service: ServiceProtocol, onSuccess success: ((List) -> Void)?, onFailure failure: TaskProtocol.failureClosure) {
         service.execute(self.request) { response in
             switch response {
-            case .data(let data):
-                do {
-                    let jsonDecoder = JSONDecoder.init()
-                    jsonDecoder.dateDecodingStrategy = .iso8601
-                    let photoStream = try jsonDecoder.decode(PublicStream.self, from: data)
-                    let list = List(withItems: photoStream.items)
-                    success?(list)
-                } catch (let error) {
-                    failure?(error)
-                }
+            case .result(let apiOutput):
+                let list = List(withItems: apiOutput.items)
+                success?(list)
             case .error(let error):
                 failure?(error)
             }
