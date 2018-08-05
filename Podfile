@@ -5,8 +5,6 @@ use_frameworks!
 
 target 'FlickrImageGallery' do
     # Podfiles
-    pod 'Alamofire'
-    pod 'SwiftyJSON'
     pod 'SDWebImage'
     
     target 'FlickrImageGalleryTests' do

@@ -42,6 +42,10 @@ enum PublicStreamRequest: Request {
         }
     }
     
+    var responseModel: APIResponse.Type {
+        return APIResponse.self
+    }
+
     // Public stream requests don't require headers so we are returning nil
     public var headers: [String : Any]? {
         switch self {

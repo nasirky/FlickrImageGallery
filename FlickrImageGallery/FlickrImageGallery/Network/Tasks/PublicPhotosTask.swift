@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 /// Represents the Public Photos Fetching Task. It fetches the public stream from Flickr and returns a List object
 public class PublicPhotosTask: TaskProtocol {
@@ -26,11 +25,8 @@ public class PublicPhotosTask: TaskProtocol {
     func execute(in service: ServiceProtocol, onSuccess success: ((List) -> Void)?, onFailure failure: TaskProtocol.failureClosure) {
         service.execute(self.request) { response in
             switch response {
-            case .json(let json):
-                let items = json["items"].arrayValue.map({ itemJSON in
-                    return Item(with: itemJSON)
-                })
-                let list = List(withItems: items)
+            case .result(let apiOutput):
+                let list = List(withItems: apiOutput.items)
                 success?(list)
             case .error(let error):
                 failure?(error)

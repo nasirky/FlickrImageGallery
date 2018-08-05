@@ -7,7 +7,6 @@
 import XCTest
 
 @testable import FlickrImageGallery
-@testable import SwiftyJSON
 
 /// Testing PublicService. Support for calling the API as well as stubbing (mocked response) the API response
 class PublicServiceTests: XCTestCase {
@@ -60,7 +59,7 @@ class PublicServiceTests: XCTestCase {
             XCTFail("Error : \(error.localizedDescription)")
         }
         
-        waitForExpectations(timeout: 10) { (error) in
+        waitForExpectations(timeout: 15) { (error) in
             if let error = error {
                 XCTFail("Error :\(error)")
             }

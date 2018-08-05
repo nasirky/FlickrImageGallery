@@ -8,7 +8,6 @@
 import XCTest
 
 @testable import FlickrImageGallery
-@testable import SwiftyJSON
 
 /// Testing that the models are correctly created and initiliazed
 class ViewModelTests: XCTestCase {
@@ -31,14 +30,21 @@ class ViewModelTests: XCTestCase {
                     "description" : "",
                     "date_taken" : "2018-07-22T11:25:30+0200",
                     "published" : "2018-07-22T11:25:45Z",
-                    "tags" : "kitten kittens test"]
+                    "tags" : "kitten,kittens,test"]
 
-        let itemDictJSON = JSON(itemDict)
-        media = Media(with: itemDictJSON)
+        do {
+            let itemDictData = try JSONSerialization.data(withJSONObject: itemDict, options: .prettyPrinted)
+
+            let jsonDecoder = JSONDecoder()
+            jsonDecoder.dateDecodingStrategy = .iso8601
+            item = try jsonDecoder.decode(Item.self, from: itemDictData)
+            
+            media = item.media
         
-        item = Item(with: itemDictJSON)
-        itemViewModel = ItemViewModel(with: item)
-        
+            itemViewModel = ItemViewModel(with: item)
+        } catch (let error) {
+            XCTFail("Unable to initialize test variables: \(error)")
+        }
         helper = Helper()
     }
     
@@ -49,9 +55,6 @@ class ViewModelTests: XCTestCase {
     
     // Test creation of the media (to make sure the urls are being generated correctly)
     func testMediaCreation() {
-        XCTAssertEqual(media.urlString, "https://api.flickr.com/services/feeds/pictures/test")
-        XCTAssertEqual(media.imageExtension, "jpg")
-        
         XCTAssertEqual(media.imageUrl, URL(string: urlString.replacingOccurrences(of: "_m", with: Media.ImageSuffix)))
         XCTAssertEqual(media.thumbnailUrl, URL(string: urlString.replacingOccurrences(of: "_m", with: Media.ThumbnailSuffix)))
     }
@@ -61,13 +64,13 @@ class ViewModelTests: XCTestCase {
         XCTAssertEqual(itemViewModel.title, itemDict["title"] as? String)
         XCTAssertEqual(itemViewModel.description(stipHtml: false), itemDict["description"] as? String)
         
-        let dateTakenString = itemDict["date_taken"] as! String
-        XCTAssertEqual(itemViewModel.dateTaken, Date.from(string: dateTakenString))
+        let dateTakenString = itemDict["date_taken"] as? String
+        XCTAssertEqual(itemViewModel.dateTaken, Date.from(string: dateTakenString ?? ""))
         
-        let datePublishedString = itemDict["published"] as! String
-        XCTAssertEqual(itemViewModel.datePublished, Date.from(string: datePublishedString, withFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'"))
+        let datePublishedString = itemDict["published"] as? String
+        XCTAssertEqual(itemViewModel.datePublished, Date.from(string: datePublishedString ?? "", withFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'"))
 
-        XCTAssertEqual(itemViewModel.tags, (itemDict["tags"] as! String).components(separatedBy: " "))
+        XCTAssertEqual(itemViewModel.tags, itemDict["tags"] as? String)
     }
     
     func testListCreationAndExpiry() {

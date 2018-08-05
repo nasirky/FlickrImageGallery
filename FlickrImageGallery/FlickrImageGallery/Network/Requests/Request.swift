@@ -13,6 +13,7 @@ public protocol Request {
     var method: HTTPMethod {get}
     var parameters: [String: Any]? {get}
     var headers: [String: Any]? {get}
+    var responseModel: APIResponse.Type {get}
     
     func urlRequest(in service: ServiceProtocol) -> URLRequest
 }

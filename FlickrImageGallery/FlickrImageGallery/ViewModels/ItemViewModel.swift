@@ -7,19 +7,11 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 struct ItemViewModel {
     private var item: Item!
 
     //MARK:- Initializers
-    /// Returns a newly initialized `ItemViewModel` object with the `Item` model's values fetched from the provided item JSON Object.
-    /// - Parameters:
-    ///   - item: SwiftyJSON's JSON representation of the item
-    init(with item: JSON) {
-        self.item = Item(with: item)
-    }
-
     /// Returns a newly initialized `ItemViewModel` object, initialized with the `Item` model/object.
     /// - Parameters:
     ///   - item: `Item` object
@@ -73,7 +65,7 @@ struct ItemViewModel {
         return item.datePublished
     }
     
-    public var tags: [String]? {
+    public var tags: String? {
         return item.tags
     }
     
@@ -87,7 +79,7 @@ struct ItemViewModel {
     ///   - format: The output format for the date string. It's an Optional parameter. Default value is yyyy-MM-dd HH:mm:ss xx.
     /// - Returns: The item as an array of optional `String`.
     public func itemAsArray(_ stripHtml: Bool,  dateFormat format: String? = "yyyy-MM-dd HH:mm:ss xx") -> [String?] {
-        return [item.title, stripHtml ? filterDescription(item.description) : item.description, item.dateTaken?.toString(), item.datePublished?.toString(), item.tags?.joined(separator: ",")]
+        return [item.title, stripHtml ? filterDescription(item.description) : item.description, item.dateTaken?.toString(), item.datePublished?.toString(), item.tags]
     }
 }
 

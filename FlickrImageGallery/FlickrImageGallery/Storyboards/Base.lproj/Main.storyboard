@@ -174,7 +174,7 @@
             </objects>
             <point key="canvasLocation" x="1437.5999999999999" y="291.90404797601201"/>
         </scene>
-        <!--KI Labs-->
+        <!--Flickr Public Photos-->
         <scene sceneID="2hP-ie-w14">
             <objects>
                 <viewController id="QGq-wE-buo" customClass="MainViewController" customModule="FlickrImageGallery" customModuleProvider="target" sceneMemberID="viewController">
@@ -293,7 +293,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Laa-Wq-CoD"/>
                     </view>
-                    <navigationItem key="navigationItem" title="KI Labs" id="SJ6-zT-9Hh">
+                    <navigationItem key="navigationItem" title="Flickr Public Photos" id="SJ6-zT-9Hh">
                         <barButtonItem key="backBarButtonItem" title=" " id="BZZ-6T-SUF"/>
                     </navigationItem>
                     <connections>

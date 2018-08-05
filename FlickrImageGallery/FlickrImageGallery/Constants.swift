@@ -11,8 +11,8 @@ import UIKit
 
 struct Constants {
     struct TableView {
-        static let Headers = ["Kittens", "Dogs", "Public Feed"]
-        static let Tags = [["kitten","kittens"],["dog","dogs"],nil]
+        static let Headers = ["Kittens", "Dogs", "Public Feed", "Beaches", "Lakes"]
+        static let Tags = [["kitten","kittens"],["dog","dogs"],nil,["beach","beaches","sand"], ["lake","lakes"]]
         
         static let ItemSortOrder = SortOrder.none
         static let Ttl = 0
