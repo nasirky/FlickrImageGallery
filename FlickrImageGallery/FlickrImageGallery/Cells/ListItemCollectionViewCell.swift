@@ -18,7 +18,7 @@ class ListItemCollectionViewCell: UICollectionViewCell {
     /// - Parameters:
     ///   - title: Title of the Item
     ///   - url: Url of the image
-    public func setup(with title: String, image url: URL?) {
+    public func configure(with title: String, image url: URL?) {
         lblTitle.text = title
 
         //Setting up activity indicator (spinner) on the imageview (which is shown when image is not loaded)

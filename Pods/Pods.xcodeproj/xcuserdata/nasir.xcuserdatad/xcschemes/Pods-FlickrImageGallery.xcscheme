@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0940"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FFDA13BDCA3F32311CE74FCE565A72F4"
+               BlueprintIdentifier = "9880423A2AAF3B50717EA135C5D5769F"
                BuildableName = "Pods_FlickrImageGallery.framework"
                BlueprintName = "Pods-FlickrImageGallery"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FFDA13BDCA3F32311CE74FCE565A72F4"
+            BlueprintIdentifier = "9880423A2AAF3B50717EA135C5D5769F"
             BuildableName = "Pods_FlickrImageGallery.framework"
             BlueprintName = "Pods-FlickrImageGallery"
             ReferencedContainer = "container:Pods.xcodeproj">
@@ -60,15 +60,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FFDA13BDCA3F32311CE74FCE565A72F4"
-            BuildableName = "Pods_FlickrImageGallery.framework"
-            BlueprintName = "Pods-FlickrImageGallery"
-            ReferencedContainer = "container:Pods.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
