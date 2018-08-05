@@ -10,7 +10,7 @@ import Foundation
 public struct APIResponse: Codable {
     let items: [Item]
     
-    // For Non-Item related replies (might be success or failure)
+    // For Non-Item related replies (might be success or failure). This is useful in case the error is returned by FlickrAPI as a JSON. It is also useful in cases where the API returns success/failure both not as list of items but as a JSON string
     let status: String?
     let message: String?
     
