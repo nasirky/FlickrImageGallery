@@ -1,7 +1,13 @@
 # FlickrImageGallery
+[![Build status](https://build.appcenter.ms/v0.1/apps/ce6556d4-1887-4c33-8bbf-ad2e64f737b5/branches/refactoring-v2/badge)](https://appcenter.ms)
 
-**Note**: The project was initially built using **MVC (*Model-View-Controller*) Architecture Pattern** but it has now been migrated to **MVVM (*Model-View-ViewModel*) Architecture Pattern**. *I will add more details to the README file soon*.
+## What's New:
+1. Migration from **MVC (*Model-View-Controller*) Architecture Pattern** to **MVVM (*Model-View-ViewModel*) Architecture Pattern**.
+2. Migration from **Alamofire** to **URLSession**.
+3. Migration from **SwiftyJSON** to **Codable**
 
+
+## Description
 The purpose of this project is to access the public photos stream from `Flickr` public photo stream. The app is basically showing three types of photos (public photos, public photos tagged with either kitten or kittens, public photos tagged with either dog or dogs). Below are some of the features of the app:
 1. Showing the photos feeds on the main screen (with `Pull to Refresh` feature)
     1. *Kittens*: Public photos tagged with either kitten or kittens
@@ -20,8 +26,6 @@ The purpose of this project is to access the public photos stream from `Flickr` 
 ## Workspace Structure:
 - **FlickrImageGallery**: App that fetches and display the photos along with all the features listen above (points 1-3)
 - **Pods**: `CocoaPods` is used as the Dependency Manager (installing third party libraries).
-    - Alamofire
-    - SwiftyJSON
     - SDWebImage
 
 
