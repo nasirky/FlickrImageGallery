@@ -21,7 +21,7 @@ class Service: ServiceProtocol {
     
     func execute(_ request: Request, onCompletion: @escaping (Response) -> ()) {
         let dataTask = defaultSession.dataTask(with: request.urlRequest(in: self)) { data,urlResponse,error in
-            let response = Response(with: data, error, request.responseModel)
+            let response = Response(with: data, error, parsedBy: request.responseParser)
             DispatchQueue.main.async {
                 onCompletion(response)
             }

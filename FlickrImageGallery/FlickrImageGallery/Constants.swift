@@ -48,4 +48,10 @@ struct Constants {
     struct Titles {
         static let Info = "Item Details"
     }
+    
+    struct API {
+        struct Response {
+            static let Failure = "fail"
+        }
+    }
 }

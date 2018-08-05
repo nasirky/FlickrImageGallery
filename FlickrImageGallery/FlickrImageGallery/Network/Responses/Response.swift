@@ -12,9 +12,10 @@ import UIKit
 /// Represents the response returned by the Service to the Task (Service is the entity executing the network calls and task represents one network call). Error handling and JSON parsing are performed here
 public enum Response {
     case error(_: String)
-    case result(_: APIResponse)
+    case response(_: APIResponse)
+    case string(_: String)
     
-    init(with data: Data?, _ error: Error?, _ outputModel: APIResponse.Type) {
+    init(with data: Data?, _ error: Error?, parsedBy parser: ResponseParser) {
         if let error = error {
             self = .error(error.localizedDescription)
             return
@@ -24,18 +25,15 @@ public enum Response {
             self = .error("No Data received from the server")
             return
         }
-        
-        let jsonDecoder = JSONDecoder()
-        jsonDecoder.dateDecodingStrategy = .iso8601
-        
         do {
-            let apiResponse = try jsonDecoder.decode(outputModel.self, from: data)
-            if let status = apiResponse.status, status == "fail" {
-                self = .error(apiResponse.message ?? status)
+            let string = String.init(data: data, encoding: .utf8)
+            let response = try parser.parse(data)
+            if let status = response.status, status == Constants.API.Response.Failure {
+                self = .string(response.message ?? status)
                 return
             }
-            self = .result(apiResponse)
-        } catch let error {
+            self = .response(response)
+        } catch (let error) {
             self = .error(error.localizedDescription)
         }
     }

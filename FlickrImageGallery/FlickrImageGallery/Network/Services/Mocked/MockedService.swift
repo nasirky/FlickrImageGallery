@@ -21,6 +21,6 @@ class MockedService: Service {
     }
     
     override func execute(_ request: Request, onCompletion: @escaping (Response) -> ()) {
-        onCompletion(Response(with: response.data(using: .utf8), nil, request.responseModel))
+        onCompletion(Response(with: response.data(using: .utf8), nil, parsedBy: request.responseParser))
     }
 }
