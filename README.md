@@ -20,7 +20,7 @@ The purpose of this project is to access the public photos stream from `Flickr` 
    3. Opening the image in browser
    4. Showing image metadata in a separate view (clicking the "i" button will show this view)
    5. Order image by date (no sorting, ascending and descending sort by publish date)
-4. **Network Layer** to perform the network calls and returned the data in the form of well-defined models..
+4. **Network Layer** to perform the network calls and returned the data in the form of well-defined models.
    1. Unit Tests (for Models and Network request)
 
 ## Workspace Structure:
@@ -36,7 +36,7 @@ Visual Representation can be found [here](https://goo.gl/bf7Hnc).
 - **Request**: Represents the Network Request Object. It also has a convenience method to transform the Request into *URLRequest* which can then be provided to *URLSession* or any other networking library such as *Alamofire* etc.
 - **TaskProtocol**: Represents a Task. Task is one unit of work (such as fetching public photos, user login etc.). Task makes a network call (via Service) and then transform the returning (JSON) response into a model.
 - **Service** and **ServiceProtocol**: The layer/component making the network calls. It takes request object and returns a response object (enum). Error handling and *Data* to JSON conversion is performed inside *Response*. *Service Protocol* defines structure of the Service(s).
-- **Response**: Represents the response returned by the Service to the Task (Service is the entity executing the network calls and task represents one API call). It returns well defined output (error or JSON object) to the task.
+- **Response**: Represents the response returned by the Service to the Task (Service is the entity executing the network calls and task represents one API call). It returns well defined output (error or Response Object) to the task.
 
 ## Implementation Specific:
 Visual representation can be found [here](https://goo.gl/ZeEMz1).
