@@ -56,7 +56,7 @@ class PublicServiceTests: XCTestCase {
             successCallback?(list)
         }) { (error) in
             testExpectation.fulfill()
-            XCTFail("Error : \(error.localizedDescription)")
+            XCTFail("Error : \(error)")
         }
         
         waitForExpectations(timeout: 15) { (error) in

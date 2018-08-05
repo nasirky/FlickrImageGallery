@@ -91,7 +91,7 @@ class ListViewModel {
             self.list = list
             completionHandler(self.itemViewModels, nil)
         },  onFailure: { error in
-            completionHandler(nil, error.localizedDescription)
+            completionHandler(nil, error)
         })
     }
 

@@ -25,8 +25,8 @@ public class PublicPhotosTask: TaskProtocol {
     func execute(in service: ServiceProtocol, onSuccess success: ((List) -> Void)?, onFailure failure: TaskProtocol.failureClosure) {
         service.execute(self.request) { response in
             switch response {
-            case .result(let apiOutput):
-                let list = List(withItems: apiOutput.items)
+            case .result(let apiResponse):
+                let list = List(withItems: apiResponse.items)
                 success?(list)
             case .error(let error):
                 failure?(error)

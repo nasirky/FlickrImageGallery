@@ -14,7 +14,7 @@ protocol TaskProtocol {
     associatedtype T
 
     typealias successClosure = ((T) -> Void)?
-    typealias failureClosure = ((Error) -> Void)?
+    typealias failureClosure = ((String) -> Void)?
     
     var request: Request {get}
 

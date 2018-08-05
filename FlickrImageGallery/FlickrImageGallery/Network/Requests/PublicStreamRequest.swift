@@ -30,7 +30,7 @@ enum PublicStreamRequest: Request {
         switch self {
         case .fetchPublicPhotos(let tags):
             var params = [ "format" : "json",
-                               "nojsoncallback" : "1"]
+                           "nojsoncallback" : "1"]
 
             guard let tags = tags else { return params }
 
